@@ -1,0 +1,33 @@
+<template>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2" style="max-height: 500px;">
+            <c-sr_tile-list
+                ordered-list-to-display={leftSideList}
+                section-labels={sectionLabels}
+                ontileclick={handleLeftClick}>
+            </c-sr_tile-list>
+            <!-- display-object={objLeftSide} -->
+
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <slot name="selectedContent">Default selectedContent</slot>
+        </div>
+        <div class="slds-col slds-size_1-of-6">
+            <c-sr_tile-list
+            ordered-list-to-display={rightSideList}
+            section-labels={sectionLabels}
+            tiles-per-column=1
+                ontileclick={handleRightClick}>
+            </c-sr_tile-list>
+            <!-- display-object={objRightSide} -->
+
+            <!-- <c-sr_tile-list
+            sort-tiles={sortTiles}
+            sort-fields={sortFields}
+
+            tile-list={listRightSide}>
+            </c-sr_tile-list> -->
+        </div>
+    </div>
+</template>

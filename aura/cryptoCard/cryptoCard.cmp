@@ -1,0 +1,49 @@
+<aura:component controller="CryptoCardController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <aura:attribute name="cryptoTypeToDisplay" type="CryptoType__c" />
+    
+    <aura:attribute name="cryptoDollarBase" type="String" default="CAD" />
+    
+    <aura:attribute name="priceToDisplay" type="Decimal" />
+    <aura:attribute name="open24" type="Decimal" />    
+    <aura:attribute name="change24" type="Decimal" />
+    <aura:attribute name="changepct24" type="Decimal" />   
+    <aura:attribute name="high24" type="Decimal" />
+    <aura:attribute name="low24" type="Decimal" />    
+    <aura:attribute name="volume24" type="Decimal" />
+    <aura:attribute name="volume24to" type="Decimal" />    
+    <aura:attribute name="lastupdated" type="DateTime" />  
+
+    <lightning:card >
+
+         <aura:set attribute="footer">
+            <p>Last Updated: <lightning:formattedDateTime value="{!v.lastupdated}" year="numeric" month="short" day="numeric" hour="2-digit" minute="2-digit" second="2-digit" timeZoneName="short" /></p>
+        </aura:set>
+        
+        
+        <p class="slds-text-heading--large slds-p-horizontal--small">
+            <span class="slds-avatar slds-avatar--medium">
+                <img alt="{!v.cryptoTypeToDisplay.Name}" src="{!v.cryptoTypeToDisplay.imageurl__c}" title="{!v.cryptoTypeToDisplay.Name}" />            
+            </span>&nbsp;{!v.cryptoTypeToDisplay.Name + ' (' + v.cryptoTypeToDisplay.symbol__c + ')'}
+        </p>
+
+        <p class="slds-text-heading--medium slds-p-horizontal--small"><lightning:formattedNumber value="{!v.priceToDisplay}" style="currency" currencyCode="{!v.cryptoDollarBase}"/></p>
+        <p class="slds-p-horizontal--small">Last 24 hours:</p>
+        <p class="slds-text-heading--small slds-p-horizontal--small">
+            Starting Value: <lightning:formattedNumber value="{!v.open24}" style="currency" currencyCode="{!v.cryptoDollarBase}"/></p>
+        <p class="slds-text-heading--small slds-p-horizontal--small">
+            Gain: <lightning:formattedNumber value="{!v.change24}" style="currency" currencyCode="{!v.cryptoDollarBase}"/> (<lightning:formattedNumber value="{!v.changepct24}" style="decimal" maximumFractionDigits="2"/>%)</p>
+        <p class="slds-text-heading--small slds-p-horizontal--small">
+            High: <lightning:formattedNumber value="{!v.high24}" style="currency" currencyCode="{!v.cryptoDollarBase}"/>
+        </p>
+        <p class="slds-text-heading--small slds-p-horizontal--small">
+            Low: <lightning:formattedNumber value="{!v.low24}" style="currency" currencyCode="{!v.cryptoDollarBase}"/>
+        </p>
+        <p class="slds-text-heading--small slds-p-horizontal--small">
+            Volume: <lightning:formattedNumber value="{!v.volume24}" style="decimal" maximumFractionDigits="2"/> (<lightning:formattedNumber value="{!v.volume24to}" style="currency" currencyCode="{!v.cryptoDollarBase}"/>)
+        </p>      
+       
+    </lightning:card>
+    
+</aura:component>

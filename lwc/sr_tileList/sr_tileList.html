@@ -1,0 +1,50 @@
+<template>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <template for:each={displayObject.entries} for:item="entry">
+                <div key={entry.Id}>
+                    <div class={tileClass}>
+                        <c-sr_tile tile-obj={entry}
+                        ontileclick={handleOnClick}>
+                        </c-sr_tile>
+                    </div>
+                </div>
+            </template>
+        </div>
+    
+        <template for:each={displayObject.h1s} for:item="h1">
+            <div key={h1}>
+                <div class="slds-text-heading_large">{h1.label}</div>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <template for:each={h1.entries} for:item="entry">
+                        <div key={entry.Id} class={tileClass}>
+                            <div  >
+                                <c-sr_tile tile-obj={entry}
+                                ontileclick={handleOnClick}>
+                                </c-sr_tile>
+                            </div>
+                        </div>
+                    </template>
+                </div>    
+    
+                <template for:each={h1.h2s} for:item="h2">
+                    <div key={h2}>
+                        <div class="slds-text-heading_medium">{h2.label}</div>
+                        <div class="slds-grid slds-wrap slds-gutters" >
+                            <template for:each={h2.entries} for:item="entry">
+                                <div key={entry.Id} class={tileClass}>
+                                    <div >
+                                        <c-sr_tile tile-obj={entry}
+                                        ontileclick={handleOnClick}
+                                        >
+                                        </c-sr_tile>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>  
+
+
+</template>

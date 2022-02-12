@@ -1,0 +1,71 @@
+<template>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner></lightning-spinner>
+    </template>
+
+    <lightning-card>
+        <template if:false={selectedChar}>
+            <div onclick={handleClick}>
+                <lightning-button data-name="NewChar" label={labels.buttons.newChar}></lightning-button><br />
+                <template for:each={characterNames} for:item="characterName">
+                    <div key={characterName.Id}>
+                        <a data-character_id={characterName.Id} data-name="existingChar">{characterName.Name}</a>
+                    </div>
+                    
+    
+                </template>
+            </div>
+
+
+        </template>
+
+
+    
+        <template if:true={selectedChar}>
+            <div onclick={handleClick} onchange={handleChange} class="slds-clearfix">
+                <lightning-button data-name="ClearChar" label={labels.buttons.cancelAll}></lightning-button>
+                <!-- <lightning-button data-name="SaveChar" label={labels.buttons.save} disabled={saveDisabled}></lightning-button> -->
+                <button class="slds-button slds-button_neutral" data-name="SaveChar" disabled={saveDisabled}>{labels.buttons.save}</button>
+                <lightning-input  data-name="Name" value={selectedChar.Name}></lightning-input>
+                <lightning-button data-name="RandomName" label={labels.buttons.random}></lightning-button>
+                <lightning-input  data-name="Real_Name__c" value={selectedChar.Real_Name__c}></lightning-input>
+                <lightning-input  data-name="Short_Notes__c" value={selectedChar.Short_Notes__c}></lightning-input>
+
+            </div>
+
+
+            <div class="slds-p-horizontal_large">
+                <lightning-tabset >
+                    <lightning-tab label={labels.tabs.basic}>
+                        <c-sr_basic-info basic-info={basicInfo}></c-sr_basic-info>
+                    </lightning-tab>
+                    <lightning-tab label={labels.tabs.metaraceAtts}>
+                        <c-sr_metarace-and-atts
+                        selected-char = {selectedChar}
+                        metarace-template-map={templates.metaraceTemplateMap}
+
+                        att-max-values={attMaxValues}
+                        adju-effects={adjuEffects}
+                        onmetarace_and_atts={handleChildEvent}
+                        ></c-sr_metarace-and-atts>
+
+                    </lightning-tab>
+                    <lightning-tab label={labels.tabs.skills}>
+                        <c-sr_skills
+                        skill-template-map={templates.skillTemplateMap}
+                        selected-skills={SkillAssigns__r}
+                        onskill_change={handleChildEvent}
+                        ></c-sr_skills>
+                    </lightning-tab>
+                </lightning-tabset>
+            </div>
+        </template>
+        
+    </lightning-card>
+
+
+
+
+
+</template>

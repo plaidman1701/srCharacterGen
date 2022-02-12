@@ -1,0 +1,17 @@
+<template>
+    <template if:true={basicInfo}>
+        {buildPointsMax}<br />
+
+        {basicInfo.metarace.label} -> {basicInfo.metarace.cost}<br />
+        {basicInfo.attributes.label} -> {basicInfo.attributes.cost}<br />
+        {basicInfo.skills.label} -> {basicInfo.skills.cost}<br />
+
+        <br />
+        <br />
+        {totalCost}
+    </template>
+
+
+
+
+</template>

@@ -1,0 +1,87 @@
+<template>
+    <div class="slds-grid slds-gutters" onchange={handleAttChange}>
+        <div class="slds-col slds-size_1-of-3">
+            <lightning-radio-group name="metaraceGroup"
+                label={labels.selectMetarace}
+                options={metaraceOptions}
+                value={selectedChar.MetaraceTemplate__c}
+                data-attributename="MetaraceTemplate__c"
+                
+                type="radio"></lightning-radio-group>
+
+            <lightning-formatted-text value={selectedMetaraceTemplate.Label}></lightning-formatted-text><br />
+            <lightning-formatted-number value={selectedMetaraceTemplate.Build_Point_Cost__c}></lightning-formatted-number><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Taxonomy__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Identification__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Habits__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Habitat__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Young__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Commentary__c}></lightning-formatted-text><br />
+            <lightning-formatted-text value={selectedMetaraceTemplate.Notes__c}></lightning-formatted-text><br />
+
+            {selectedMetaraceTemplate.Label}<br />
+            {selectedMetaraceTemplate.Build_Point_Cost__c}<br />
+            {selectedMetaraceTemplate.Taxonomy__c}<br />
+            {selectedMetaraceTemplate.Identification__c}<br />
+            {selectedMetaraceTemplate.Habits__c}<br />
+            {selectedMetaraceTemplate.Habitat__c}<br />
+            {selectedMetaraceTemplate.Young__c}<br />
+            {selectedMetaraceTemplate.Commentary__c}<br />
+            {selectedMetaraceTemplate.Notes__c}<br />
+        </div><!-- col -->
+        <div class="slds-col slds-size_1-of-3">
+            {selectedMetaraceName}<br />
+            {labels.atts.body} - {adjuEffects.atts.Body__c.text}
+            <lightning-combobox
+                data-attributename="Body__c"
+                
+                options={attComboxValues.Body__c}
+                value={selectedChar.Body__c}></lightning-combobox>
+                {labels.atts.strength} - {adjuEffects.atts.Strength__c.text}
+                <lightning-combobox
+                data-attributename="Strength__c"
+                
+                options={attComboxValues.Strength__c}
+                value={selectedChar.Strength__c}></lightning-combobox>
+                {labels.atts.quickness} - {adjuEffects.atts.Quickness__c.text}
+                <lightning-combobox
+                data-attributename="Quickness__c"
+                
+                options={attComboxValues.Quickness__c}
+                value={selectedChar.Quickness__c}></lightning-combobox>
+                {labels.atts.intelligence} - {adjuEffects.atts.Intelligence__c.text}
+                <lightning-combobox
+                data-attributename="Intelligence__c"
+                
+                options={attComboxValues.Intelligence__c}
+                value={selectedChar.Intelligence__c}></lightning-combobox>
+                {labels.atts.willpower} - {adjuEffects.atts.Willpower__c.text}
+                <lightning-combobox
+                data-attributename="Willpower__c"
+                
+                options={attComboxValues.Willpower__c}
+                value={selectedChar.Willpower__c}></lightning-combobox>
+                {labels.atts.charisma} - {adjuEffects.atts.Charisma__c.text}
+                <lightning-combobox
+                data-attributename="Charisma__c"
+                
+                options={attComboxValues.Charisma__c}
+                value={selectedChar.Charisma__c}></lightning-combobox>
+
+                {labels.atts.reaction}: {adjuEffects.atts.Reaction__c.text}<br />
+                {labels.initiative}: {adjuEffects.atts.Initiative.text}<br />
+
+
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <template for:each={adjuEffects.adjuListText} for:item="bonus">
+                {bonus}<br key={bonus}/>
+            </template>
+        </div>
+
+
+
+
+    </div><!-- grid -->
+    
+</template>

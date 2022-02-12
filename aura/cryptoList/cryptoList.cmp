@@ -1,0 +1,14 @@
+<aura:component >
+    
+    <aura:attribute name="cryptosToList" type="CryptoType__c[]"/>
+
+    <lightning:card title="Cryptos I'm watching:">
+        <p class="slds-p-horizontal--small">
+            <aura:iteration items="{!v.cryptosToList}" var="cryptoTypeToList">
+                
+                <c:cryptoCard cryptoTypeToDisplay="{!cryptoTypeToList}" />
+            </aura:iteration>
+        </p>
+    </lightning:card>
+    
+</aura:component>
