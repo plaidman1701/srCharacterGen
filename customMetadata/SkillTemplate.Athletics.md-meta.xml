@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Athletics</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Concentrations__c</field>
+        <value xsi:type="xsd:string">Running, Climbing, Lifting, Jumping, Swimming</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Athletics Skill governs exceptional training in a particular aspect of physical endeavor. Specialization involves increasing one&apos;s Concentration, rather than working in a specific form. Thus, a character Specializing in Climbing applies +2 to his Athletics Rating when climbing and -2 when using a different Athletics Concentration.</value>
+    </values>
+    <values>
+        <field>Requires_Name__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Active</value>
+    </values>
+</CustomMetadata>

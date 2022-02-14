@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Poltergeist</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Within the area of this spell, all small objects and debris, up to a kilogram In mass, whirl around in random pattems. This reduces the visibility factor of the area (+2 to all target numbers). The spell does Stun damage as well, whacking targets with flying debris. Targets within the area use their Quickness Rating, not Body, for their Resistance Tests agalnst such damage, with the Spell Force Rating as the target number. The Damage Category is Light. Impact armor provides protection agalnst this damage.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">[(F/2)+1]S</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Sustained</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">LOS</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:type="xsd:string">Telekinetic Manipulations</value>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">4 (R)</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

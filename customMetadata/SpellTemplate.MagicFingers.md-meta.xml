@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Magic Fingers</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Magic fingers is classic telekinesis. The magician creates &quot;Invisible hands&quot; and can hold or manipulate items by mental power. The Spell Success Test has a Target Number 6. The number of successes becomes the spell&apos;s ratings for Strength and Quickness. The character can use his own skills with the magic flngers spell, but all target numbers receive a +2 because of the problems of remote control. Even simple actions may require a Quickness Test. The magician can fight, pick a lock, or whatever, using magic fingers. The fingers can reach any point the magician can see. The casting magician can use a clairvoyance spell or even remoteviewing technology to get a close-up of the scene, as long as the actual location is within his view. The spell comes in very handy for disarming bombs.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">[(F/2)+2]M</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Sustained</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">LOS</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:type="xsd:string">Telekinetic Manipulations</value>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">6</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

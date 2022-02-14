@@ -16,11 +16,7 @@
     
                 </template>
             </div>
-
-
         </template>
-
-
     
         <template if:true={selectedChar}>
             <div onclick={handleClick} onchange={handleChange} class="slds-clearfix">
@@ -58,14 +54,19 @@
                         onskill_change={handleChildEvent}
                         ></c-sr_skills>
                     </lightning-tab>
+                    <lightning-tab label={labels.tabs.magic}>
+                        <c-sr_magic
+                        magician-type-map={templates.magicianTypeMap}
+                        selected-char={selectedChar}
+                        totem-map={templates.totemMap}
+                        spell-template-map={templates.spellTemplateMap}
+                        onmagic_event={handleChildEvent}
+                        ></c-sr_magic>
+                    </lightning-tab>
                 </lightning-tabset>
             </div>
         </template>
         
     </lightning-card>
-
-
-
-
 
 </template>

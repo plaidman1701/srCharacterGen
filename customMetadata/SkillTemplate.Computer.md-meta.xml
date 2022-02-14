@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Computer</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Technical</value>
+    </values>
+    <values>
+        <field>Concentrations__c</field>
+        <value xsi:type="xsd:string">Hardware (Mainframes, Micros, Interface Tech, Implant Tech), Software (Decking, Matrix Programming, Non-Matrix Programming, Interface Programming, Implant Programming)</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Computer Skill governs the use and understanding of computer technology and programming. This skill is absolutely essential to anyone who wishes to lack into cyberspace and run the Matrix.</value>
+    </values>
+    <values>
+        <field>Requires_Name__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Active</value>
+    </values>
+</CustomMetadata>

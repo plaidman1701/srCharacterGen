@@ -42,7 +42,10 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Willpower__c',
             'Intelligence__c',
             'Charisma__c',
-            'MetaraceTemplate__c'
+            'MetaraceTemplate__c',
+            'TotemId__c',
+            'MagicalTradition__c',
+            'MagicianTypeId__c'
         })
         .setCondition('Id = :charId');
 
@@ -53,7 +56,15 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Special_Skill_Name__c'
         });
 
-        // SkillAssigns
+        qFactory.subSelectQuery('Spell_Assigns__r')
+        .selectFields(new List<String>{
+            'Name',
+            'Rating__c',
+            'SpellTemplateId__c',
+            'Drain__c',
+            'Duration__c'
+        });
+
         return (SRcharacter__c) Database.query( qFactory.toSOQL() );
 
     }
@@ -85,6 +96,3 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
         //return Database.upsert(charToSave, false);
     }
 }
-
-
-

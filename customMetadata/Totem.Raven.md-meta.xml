@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Raven</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for manipulation spells; +2 dice for conjuring wind spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Like Coyote, Raven is a trickster, clever and devious. Raven is also the transformer, responsible for changes. He is a liVing contradiction, greedy and generous by turns.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Raven shamans are either overweight or else rail-thln. ln either case, they are gluttonous and always hungry, finding it next to impossible to refuse an offer of food .Raven dislikes fighting, preferring to let others handle that part of life. Subtract 1 die for combat spells. Whenever not under the open sky, Raven shamans suffer a + 1 to all target numbers.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Anywhere under the open sky</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+</CustomMetadata>

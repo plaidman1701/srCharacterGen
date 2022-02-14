@@ -27,9 +27,14 @@ function stripPlaceholderIds(cmp) {
 
 let apexHelper = {
     getInitData: (cmp) => {
+        console.log('getting init data');
+
         cmp.showSpinner = true;
         getInitData()
             .then(result => {
+                console.log('got init data');
+                console.log(JSON.stringify(result));
+
                 cmp.handles = result.sampleHandles;
                 randomizeArray(cmp.handles);
 

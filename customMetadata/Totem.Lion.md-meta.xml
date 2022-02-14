@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Lion</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for combat spells; +2 dice for conjuring prairie spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Lion is the brave and powerful warrior. His method is direct and pointed, for he is not a creature of subtlety. Lion prefers to work from surprise or ambush, allowing others to perform tasks for him while he holds his strength In reserve. He will take the offensive when necessary. Any threat to his kin or family is a threat to him.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">-1 die for health spells. Lion is vain and demands the most from himself, especially when it comes to his physical condition and appearance. He must live well, and demands respect and loyalty from those around him.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Prairie</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Combat</value>
+    </values>
+</CustomMetadata>

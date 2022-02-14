@@ -10,11 +10,13 @@ import apexHelper from "./helpers/apexHelper.js";
 const LABELS = {
     attributes: "Attributes",
     skills: "Skills",
+    magic: "Magic",
     tabs: {
         
         basic: "Basic info",
         metaraceAtts: "Metarace and Attributes",
-        skills: "Skills"
+        skills: "Skills",
+        magic: "Magic"
         
     },
     buttons: {
@@ -61,6 +63,8 @@ export default class SR_AppWrapper extends LightningElement {
 
 
     connectedCallback() {
+        console.log('connectedCallback SR_AppWrapper');
+
         apexHelper.getInitData(this);
         eventHelper.resetObjectsBeingDeleted(this);
     }
@@ -105,8 +109,8 @@ export default class SR_AppWrapper extends LightningElement {
     handleChildEvent(event) {
         event.stopPropagation();
 
-        //console.log('handleChildEvent event:');
-        //console.log(JSON.stringify(event));
+        console.log('handleChildEvent event:');
+        console.log(JSON.stringify(event));
 
         switch (event.type) {
             case "toggleSpinner":
@@ -118,6 +122,10 @@ export default class SR_AppWrapper extends LightningElement {
             case "skill_change":
                 eventHelper.handleskill_change(this, event.detail);
                 break;
+            case "magic_event":
+                eventHelper.handlemagic_event(this, event.detail);
+                break;
+
         }
 
         eventHelper.rebuildAdjusAndBasicInfo(this);

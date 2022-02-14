@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Ork</label>
+    <protected>false</protected>
+    <values>
+        <field>Build_Point_Cost__c</field>
+        <value xsi:type="xsd:double">10.0</value>
+    </values>
+    <values>
+        <field>Commentary__c</field>
+        <value xsi:type="xsd:string">The higher proportion of rod over cone structures In the ork&apos;s eyes allows enhanced low-light vision. Individuals expressing into robustus usually evidence negative psychological effects, with severe psychoses and aberrant behavioral patterns common. Individuals bom robustus usually socialize normally.</value>
+    </values>
+    <values>
+        <field>Habitat__c</field>
+        <value xsi:type="xsd:string">Usually In roofed buildings.</value>
+    </values>
+    <values>
+        <field>Habits__c</field>
+        <value xsi:type="xsd:string">Orks are active day and night, but seem to prefer the night. Their diet is omnivorous, but with a distinct preference for meat. Populations form large groups, often with a tribal structure. The typical life span appears to be between 35 and 40 years. Their breeding season is unrestricted. Gestation is 187 days.</value>
+    </values>
+    <values>
+        <field>Identification__c</field>
+        <value xsi:type="xsd:string">Orks are 1.9 meters tall and weigh 95 kilograms. Their skin coloration varies from pale pink to ebony. Ork bodies are proportioned similarly to that of sapiens, but robustus is more heavily built. Head hair is usually more prominent than the sapiens ethnic group from which the individual robustus was derived. The ork nose tends to be broad and the lips thin. The ears show definite points and are sometimes elongated as well. The ork skull has 32 teeth, with greatly enlarged lower canines. Ork females have 2 mammae. Similar Species: Robustus, like ingentis, is highly variable in appearance, leading investigators to theorize that certain individuals or small communities are, in fact, other subspecies or other species entirely. This variety of types continues to mislead unwary researchers.</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">ork.png</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:type="xsd:string">+3 Body, +2 Strength, -1 Charisma, -1 Intelligence, lowlight vision</value>
+    </values>
+    <values>
+        <field>RunningMultiplier__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Taxonomy__c</field>
+        <value xsi:type="xsd:string">Homo sapiens robustus</value>
+    </values>
+    <values>
+        <field>Young__c</field>
+        <value xsi:type="xsd:string">Ork mothers usually bear four children, but births of six or eight are not uncommon. Birth weight is 4.2 percent of mother&apos;s weight. Suckling time is more than seven months. Most newboms are obviously robustus, but may appear as sapiens; 95 percent of the latter will express at puberty, which occurs around age ten.</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Cure Disease</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Health</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">The cure disease spell can be used at any point after infection, killing the germs in the patient&apos;s system and eliminating any symptoms at once, but It does not heal damage already done by the disease. That takes a separate healing spell. Successes from the cure spell directly reduce the Virulence (Power) of the disease at a one-to-one ratio, making the target&apos;s own Resistance Tests easier.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">(F/2)L;(F/2)M;(F/2)S;(F/2)D</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Permanent (5 turns);Permanent (10 turns);Permanent (15 turns);Permanent (20 turns);</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">Touch</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">Virulence</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:type="xsd:string">L;M;S;D</value>
+    </values>
+</CustomMetadata>

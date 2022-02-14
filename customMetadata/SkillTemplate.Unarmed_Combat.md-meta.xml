@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Unarmed Combat</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Combat</value>
+    </values>
+    <values>
+        <field>Concentrations__c</field>
+        <value xsi:type="xsd:string">Subduing Combat, Cyber-Implant Weaponry (SW), Martial Arts Style (Specific Technique)</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Unarmed Combat Skill governs the use of martial arts techniques and implant weapons. A Concentration for Martial Arts Style (with a Specialization for specific techniques) is listed below. This Concentration (e.g.. tae kwon do) and Specialization (hand strikes) is only appropriate for use in the game when both the player and gamemaster understand the specifics of the desired style, including its forms and limitations.</value>
+    </values>
+    <values>
+        <field>Requires_Name__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Active</value>
+    </values>
+</CustomMetadata>

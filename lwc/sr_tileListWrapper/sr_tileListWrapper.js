@@ -11,12 +11,12 @@ export default class Sr_tileListWrapper extends LightningElement {
 
     connectedCallback() {
         console.log('Sr_tileListWrapper');
-        console.log(JSON.stringify(this.leftSideList));
-        console.log(JSON.stringify(this.rightSideList));
-        console.log(Array.isArray(this.leftSideList));
-        console.log(Array.isArray(this.rightSideList));
-        console.table(this.leftSideList);
-        console.table(this.rightSideList);
+        // console.log(JSON.stringify(this.leftSideList));
+        // console.log(JSON.stringify(this.rightSideList));
+        // console.log(Array.isArray(this.leftSideList));
+        // console.log(Array.isArray(this.rightSideList));
+        // console.table(this.leftSideList);
+        // console.table(this.rightSideList);
 
     }
 

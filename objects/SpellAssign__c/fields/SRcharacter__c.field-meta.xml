@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SRcharacter__c</fullName>
+    <externalId>false</externalId>
+    <label>SRcharacter</label>
+    <referenceTo>SRcharacter__c</referenceTo>
+    <relationshipLabel>Spell Assigns</relationshipLabel>
+    <relationshipName>Spell_Assigns</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

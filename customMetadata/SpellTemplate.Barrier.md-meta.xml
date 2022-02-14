@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Barrier</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Barrier is an area-effect spell in which the magician forms a force field of crackling energy. The Spell Success Test has a Target Number 6.The magician may form the barrier as a normal area spell, which would create a dome of energy, or he may create a wall. The wall&apos;s height is the spell&apos;s Force in meters. The length of the wall or radius of the dome is equal to the magician&apos;s Magic Rating. This length may be adjusted in the same way as the radius of an area effect, by withholding dice from the Success Test. The magician may make the wall into any shape. Anything the size of a molecule (or less) can pass the barrier, including air or other gases. Anything bigger treats a physical barrier as having a Barrier Rating equal to the spell&apos;s Force (and is therefore cumulative with armor). Attacks directed through a barrier spell have a visibility modifier of -1. Physical barriers do not impede spells, even manipulation spells.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">[(F/2)+2]S</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Sustained</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">Limited</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:type="xsd:string">Transformation Maniplulations</value>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">6</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

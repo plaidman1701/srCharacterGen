@@ -28,9 +28,9 @@ export const simpleToast = (cmp, title, message, variant) => {
     popToast(cmp, {title, message, variant});
 };
 
-function sortByLabel(a, b) {
-    if (a.Label !== b.Label) {
-        return (a.Label > b.Label ? 1 : -1);
+export const sortByLabel = (a, b) => {
+    if (a.label !== b.label) {
+        return (a.label > b.label ? 1 : -1);
     }
 
     return 0;
@@ -150,4 +150,3 @@ function* infiniteIds() {
         yield `placeholderId${index++}`;
     }
 }
-

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Eagle</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for detection spells; +2 dice for conjuring wind spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Eagle Is the highest-flying bird In the sky, and so comes dosest to heaven. He faces the rising sun at dawn and is lord of the highest peaks. Eagle is proud, solitary, and sees everything that happens on the Earth over which he flies.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">An Eagle shaman will not tolerate evil or ignoble actions. He is a fierce defender of the land and the purity of nature, with a strong distrust of technology and Its tools. Polluters and others who would damage the land for profit are Eagle&apos;s enemies, and he will brave any danger to defeat them. Double all Essence losses caused byadding cyberware, because of the psychological impact this has on the Eagle shaman.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Mountains</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Detection</value>
+    </values>
+</CustomMetadata>

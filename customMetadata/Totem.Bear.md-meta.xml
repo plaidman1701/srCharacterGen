@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Bear</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for all health spells; +2 dice for conjuring forest spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Bear is powerful in body, but ponderous unless he has to move fast. He seems clumsy and unaware of his surround-ings, but he is in harmony with the world and what goes on around him. He is slow in speech but mighty in battle Bear is a powerful healing totem found In shamanic cultures wherever bears are known, be it North America, central and northern Europe. or Asia. Bear is a healer. Unless a Bear shaman has a good reason to refuse healing to someone who needs it, he cannot do so.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">A Bear shaman can go berserk when wounded. Whenever a Bear shaman is wounded, his player makes a Willpower Test with an Injury-modified Target Number of 3. The Bear shaman will go berserk for three turns, minus one turn for every success. If the player rolls 3 or more successes, the berserk rage Is controlled . A berserk shaman will attack the dosest living thing, using his most powerful weapons (either magical or physical). When the time Is up or if the shaman kills or incapacitates an enemy, the berserk fury dissipates.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Forest</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Health</value>
+    </values>
+</CustomMetadata>

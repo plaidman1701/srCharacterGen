@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Biotech</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Technical</value>
+    </values>
+    <values>
+        <field>Concentrations__c</field>
+        <value xsi:type="xsd:string">Transimplant Surgery (Headware, Bodyware, Organic Replacements), Organ Culture (by organ or limb), Replacement Construction (by organ or limb), Extended Care, First Aid</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Biotech Skill governs basic medicine, first aid, and implant operations. A character with this skill understands basic medicine in a hands-on sense, as a paramedic rather than a physician. Though familiar with the techniques and materials of cyberware, a character with this skill would still need a computer expert to collaborate on the interface systems.</value>
+    </values>
+    <values>
+        <field>Requires_Name__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Active</value>
+    </values>
+</CustomMetadata>

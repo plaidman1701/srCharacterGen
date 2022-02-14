@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Troll</label>
+    <protected>false</protected>
+    <values>
+        <field>Build_Point_Cost__c</field>
+        <value xsi:type="xsd:double">10.0</value>
+    </values>
+    <values>
+        <field>Commentary__c</field>
+        <value xsi:type="xsd:string">The sensitivity of trolls&apos; eyes to the infrared portion of the spectrum allows a troll almost unrestricted activity after dark. Expression from sapiens to ingentis adversely affects an individual&apos;s mental condition, often resulting In psychosis and aberrant behavioral pattems. Individuals bom as ingentis do not experience this trauma and usually socialize normally.</value>
+    </values>
+    <values>
+        <field>Habitat__c</field>
+        <value xsi:type="xsd:string">Trolls who live in wilderness areas use caverns and converted structures such as bridges for their dwelling places. In urban areas, they prefer areas shunned by &quot;normals&quot;, such as sewers or derelict buildings.</value>
+    </values>
+    <values>
+        <field>Habits__c</field>
+        <value xsi:type="xsd:string">Trolls prefer nighttime activity. Their diet is omnivorous. Populations usually congregate in small groups, which often cohabit with subspecies robustus. Metabolic studies and direct observation indicate a life expectancy of about 50 years. The breeding season Is unrestricted. Gestation Is 259 days.</value>
+    </values>
+    <values>
+        <field>Identification__c</field>
+        <value xsi:type="xsd:string">Trolls measure 2.8 meters and weigh 225 kilograms. Skin color varies from pinkish-white to mahogany brown, and usually remains unchanged after ingentisization, or transformation into troll form. Ingentis body proportions differ from those of sapiens, with the ratio of arm-to-leg length significantly higher in ingentis. Trolls are very heavily built and occasionally exhibit dermal bone deposition, resulting in spines, rough surface texture, or an armor-plated effect. Body hair is usually well-developed, but may be absent altogether. Head hair is usually more prominent than among the sapiens ethnic group from which the individual ingentis was derived. The nose tends to be broad. The ears show definite points and are sometimes elongated. The sloped skull has 34 teeth; lower canines are enlarged and molars display extreme convolutions, which researchers interpret to mean that ingentis teeth are constantly regenerating. Troll females have 2 mammae. Similar Species: Some investigators believe that individuals or small communities of this subspecies are, in fact, other species entirely. Futher Investigation, including breeding studies, are required to confirm such hypotheses, as trolls are highly variable in appearance.</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">troll.png</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:type="xsd:string">+5 Body, +4 Strength, -1 Quickness, -2 Charisma, -2 Intelligence, -1 Wilpower, thermographic vision, +1 reach in melee combat, +1 dermal armour</value>
+    </values>
+    <values>
+        <field>RunningMultiplier__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Taxonomy__c</field>
+        <value xsi:type="xsd:string">Homo sapiens ingentis</value>
+    </values>
+    <values>
+        <field>Young__c</field>
+        <value xsi:type="xsd:string">Usually one. Birth weight is 2.5 percent of mother&apos;s weight. Suckling time Is more than 15 months.</value>
+    </values>
+</CustomMetadata>

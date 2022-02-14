@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Coyote</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">None. A Coyote shaman would never permit himself to be limited by such concepts. He is beyond rules and lives by his own wits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Coyote Is the GreatTrickster, unpredictably bold one moment, cowardly the next. He can be a friend or a cruel joker who leads one Into danger. Coyote is also the great magician. A Coyote shaman is too independent to be bound by anything except his word. Like Grandfather Coyote of the legends, he is intensely curious. He is also typically greedy and fond of taking risks just for fun.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Anywhere on land</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

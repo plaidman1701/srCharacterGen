@@ -11,4 +11,3 @@ export default class Sr_basicInfo extends LightningElement {
         return this.buildPointsMax - Object.entries(this.basicInfo).reduce(((previousValue, currentValue) => previousValue + currentValue[1].cost), 0);
     }
 }
-

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Increase (Attribute)</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Health</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">The spell increases a normal Physical or Mental Attribute but not any other Special Attributes. The target number for the Spell Success Test Is equal to twice the rating of the Attribute to be Increased. A single success is sufficient. This spell does not affect cybemetlc features.which require the spell described next. Each Attribute has four spedfic spells, and so there might be a magician who knows Increase Strength +2, Increase Quickness + 1, and so on. Note that this spell does not stack on top of other Increase attribute spells of the same type. When cast on characters with an already magically boosted Attribute (such as a physical adept) , the target number Is increased by +4.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">[(F/2)+1]L;[(F/2)+1]M;[(F/2)+1]S;[(F/2)+1]D</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Sustained</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:type="xsd:string">Body;Strength;Quickness;Willpower;Charisma;Intelligence</value>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">Touch</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">2 x affected attribute</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Mana</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:type="xsd:string">+1;+2;+3;+4</value>
+    </values>
+</CustomMetadata>

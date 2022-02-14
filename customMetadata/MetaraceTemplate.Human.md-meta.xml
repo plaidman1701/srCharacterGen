@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Human</label>
+    <protected>false</protected>
+    <values>
+        <field>Build_Point_Cost__c</field>
+        <value xsi:type="xsd:double">0.0</value>
+    </values>
+    <values>
+        <field>Commentary__c</field>
+        <value xsi:type="xsd:string">As the form of Homo sapiens present throughout recorded history, Homo sapiens sapiens is sometimes called &quot;normal&quot; as distinguished from other subspecies. This is not a scientific term, as any subspecies is just as normal as another. In common usage, the term differentiates sapiens from the groups of &quot;metahumans&quot; whose existence has been recorded since 2011.</value>
+    </values>
+    <values>
+        <field>Habitat__c</field>
+        <value xsi:type="xsd:string">Humans prefer to dwell in roofed structures.</value>
+    </values>
+    <values>
+        <field>Habits__c</field>
+        <value xsi:type="xsd:string">Most humans prefer daytime activity. Their diet is omnivorous. Human populations live in small family groups, pairs of adults, or alone. The worldwide average human life span is 55 years. The breeding season is unrestricted. Gestation is 266.5 days.</value>
+    </values>
+    <values>
+        <field>Identification__c</field>
+        <value xsi:type="xsd:string">Humans stand about 1.7 meters high and weigh about 70 kilograms. Coloration Is variable, from pinkish-white to ebony. There are three major ethnic groups, each of which varies considerably in size, coloration, and hair distribution and quality, but the ears are always rounded, the skull has 32 teeth, and the women have 2 mammae.</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">human.png</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>RunningMultiplier__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Taxonomy__c</field>
+        <value xsi:type="xsd:string">Homo sapiens sapiens</value>
+    </values>
+    <values>
+        <field>Young__c</field>
+        <value xsi:type="xsd:string">Usually one. Twins are uncommon and higher multiples even rarer. Birth weight is 5.5 percent of mother&apos;s weight. Suckling time is more than twelve months. An individual offspring may be of subspecies robustus or ingentis and may express (undergo Unexplained Genetic Expression) at puberty.</value>
+    </values>
+</CustomMetadata>

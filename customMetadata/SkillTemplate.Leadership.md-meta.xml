@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Leadership</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Concentrations__c</field>
+        <value xsi:type="xsd:string">Political, Military, Commercial (Specializations for each Concentration include Strategy (general plans), Tactics (topical plans), and Morale)</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Leadership Skill governs a character&apos;s ability to get others to do his bidding through the exercise of example and authority. It includes an aspect of problem-solving, but is not intended to substitute for clar thinking and good planning on the part of the players. Leadership skill uses the subject&apos;s Intelligence rating as a target number.</value>
+    </values>
+    <values>
+        <field>Requires_Name__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Social</value>
+    </values>
+</CustomMetadata>

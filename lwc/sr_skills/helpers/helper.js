@@ -1,5 +1,4 @@
-
-import { buildListForDisplay, sortByListOrdering, sendEvt } from "c/sr_jsModules";
+import { sortByListOrdering, sendEvt } from "c/sr_jsModules";
 
 const skillOrdering = [
     ["Active", "Combat", "Physical", "Technical", "Magical"],
@@ -18,13 +17,13 @@ let helper = {
 
         //cmp.skillTemplateObj = buildListForDisplay(cmp.skillTemplateList, skillOrdering, "Type__c", "Category__c");
         cmp.orderedSkillTemplateList = cmp.skillTemplateList.sort(sortByListOrdering(skillOrdering, ...cmp.skillSectionLabels));
-
+        console.log("sorted buildSkillTemplateArray");
         //console.log("cmp.skillTemplateObj:");
         //console.log(JSON.stringify(cmp.skillTemplateObj));
     },
 
     buildMinimalSkillTemplateList: (cmp) => {
-
+/*
         let minimalskillTemplateList = [];
 
         Object.entries(cmp.skillTemplateMap).forEach(([ key, value ]) => minimalskillTemplateList.push({
@@ -34,7 +33,20 @@ let helper = {
             Category__c: value.Category__c
         }));
 
+
+
         cmp.skillTemplateList = minimalskillTemplateList;
+*/
+        cmp.skillTemplateList = Object.entries(cmp.skillTemplateMap).map(([ key, value ]) => {
+            return {
+                Id: key,
+                Label: value.Label,
+                Type__c: value.Type__c,
+                Category__c: value.Category__c
+            }
+        })
+        console.log("built buildMinimalSkillTemplateList");
+
     },
 
     buildMinimalSelectedSkillList: (cmp) => {
@@ -58,6 +70,7 @@ let helper = {
     buildSortedSkillListArray: (cmp) => {
         //cmp.selectedSkillsObj = buildListForDisplay(cmp.minimalSkillList, skillOrdering, "Type__c", "Category__c");
         cmp.orderedSkillList = cmp.minimalSkillList.sort(sortByListOrdering(skillOrdering, "Type__c", "Category__c"));
+        console.log("sorted buildSortedSkillListArray");
 
         //console.log("cmp.selectedSkillsObj:");
         //console.log(JSON.stringify(cmp.selectedSkillsObj));

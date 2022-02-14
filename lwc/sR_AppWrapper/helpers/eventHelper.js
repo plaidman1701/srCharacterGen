@@ -26,7 +26,13 @@ function buildAdjus(cmp){
         returnList = returnList.concat(cmp.templates.metaraceAdjustmentMap[cmp.selectedChar.MetaraceTemplate__c]);
     }
 
-
+    // totem
+    // check if magic type allows shaman, check for shaman, check for totem
+    if (cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c]?.TraditionOptions__c?.includes("Shamanic") &&
+        cmp.selectedChar.MagicalTradition__c == "Shamanic" &&
+        !!cmp.templates.totemAdjustmentMap[cmp.selectedChar.TotemId__c]) {
+            returnList = returnList.concat(cmp.templates.totemAdjustmentMap[cmp.selectedChar.TotemId__c]);
+    }
     
     return returnList;
 };
@@ -56,6 +62,8 @@ function buildAdjuEffects(cmp){
                 adjuEffects.atts[adju.Field__c].natural += adju.Value__c;
             }
         }
+
+        // do essence
     });
 
 
@@ -137,6 +145,15 @@ function buildBasicInfo(cmp){
     };
     cmp.SkillAssigns__r = [ ...cmp.selectedChar.SkillAssigns__r ];
 
+    // magic
+    console.log('buildBasicInfo');
+    console.log(cmp.selectedChar.MagicianTypeId__c);
+    let magicBuildPoints = (cmp.selectedChar.MagicianTypeId__c ? cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c].BuildPoints__c : 0);
+    let magicTypeName = (cmp.selectedChar.MagicianTypeId__c ? cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c].Label : "");
+    basicInfo.magic = {
+        label: `${cmp.labels.magic} ${magicTypeName} (${magicBuildPoints})`,
+        cost: magicBuildPoints
+    };
 
     cmp.basicInfo = basicInfo;
 
@@ -224,39 +241,20 @@ let eventHelper = {
                 break;
         }
 
-
-
-
-
-
-        // handle upsert and delete
-        //console.log('payload.templateId: ' + payload.templateId);
-        //console.log('skillIndex: ' + skillIndex);
-        // let skillIndex = cmp.selectedChar.SkillAssigns__r.findIndex(assign => assign.SkillTemplateId__c == payload.templateId);
-
-        // if (payload.rating) {
-        //     // upsert
-        //     if (skillIndex === undefined || skillIndex === -1) {
-        //         // add
-        //         let newAssign = {
-        //             SkillTemplateId__c: payload.templateId,
-        //             Rating__c: payload.rating,
-        //             Special_Skill_Name__c: payload.name,
-        //             Id: placeholderIdGenerator.next().value
-        //         };
-        //         cmp.selectedChar.SkillAssigns__r.push(newAssign);
-        //     } else {
-        //         // replace
-        //         cmp.selectedChar.SkillAssigns__r[skillIndex].Rating__c = payload.rating;
-        //     }
-        // } else if (!(skillIndex === undefined || skillIndex === -1)) {
-        //         // delete
-        //         cmp.objectsBeingDeleted.skillAssigns.push(...cmp.selectedChar.SkillAssigns__r.splice(skillIndex, 1));
-        // }
-        //console.log('cmp.selectedChar.SkillAssigns__r');
-        //console.log(JSON.stringify(cmp.selectedChar.SkillAssigns__r));
-        // rebuild so @track picks up on the changes
         cmp.SkillAssigns__r = [ ...cmp.selectedChar.SkillAssigns__r ];
+    },
+
+    handlemagic_event: (cmp, detail) => {
+        // cmp.selectedChar.MagicianTypeId__c = detail.MagicianTypeId__c;
+        // cmp.selectedChar.MagicalTradition__c = detail.MagicalTradition__c;
+        // cmp.selectedChar.TotemId__c = detail.TotemId__c;   
+        
+        Object.assign(cmp.selectedChar, detail.characterData);
+        cmp.selectedChar = Object.assign({}, cmp.selectedChar);
+
+        console.log('handlemagic_event:');
+        console.log(JSON.stringify(cmp.selectedChar));
+        
     },
 
     resetObjectsBeingDeleted: (cmp) => {

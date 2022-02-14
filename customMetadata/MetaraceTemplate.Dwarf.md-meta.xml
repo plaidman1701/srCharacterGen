@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Dwarf</label>
+    <protected>false</protected>
+    <values>
+        <field>Build_Point_Cost__c</field>
+        <value xsi:type="xsd:double">10.0</value>
+    </values>
+    <values>
+        <field>Commentary__c</field>
+        <value xsi:type="xsd:string">With eyes sensitive to the infrared spectrum, a dwarfs activity is as unrestricted underground as above. Dwarf phenotypes also show an increased resistance to pathogens.</value>
+    </values>
+    <values>
+        <field>Habitat__c</field>
+        <value xsi:type="xsd:string">This subspecies prefers artificial or natural caverns in wilderness areas. In urban environments, dwarfs show a preference for dwelling in basements or sub-basements.</value>
+    </values>
+    <values>
+        <field>Habits__c</field>
+        <value xsi:type="xsd:string">Dwarfs may be active by day or night. Their diet is omnivorous. Populations form small family groups, and though they show isolationist tendencies, small enclaves are found in communities all over the world. Their life span is unverified, but predictions based on metabolic rates run to more than a hundred years. Their breeding season is unrestricted. The gestation period is 284 days.</value>
+    </values>
+    <values>
+        <field>Identification__c</field>
+        <value xsi:type="xsd:string">The average dwarf is 1.2 meters tall and weighs 54 kilograms. Skin coloration is usually pinkish-white or light tan, but may be as dark as ebony. Female dwarfs have 2 mammae, and all dwarfs have 32 teeth. Dwarf legs are disproportionately short, making them poor runners. Their torsos are wide, with great breadth at the shoulders, endowing the subspecies with increased arm strength. Their body hair is well-developed and head hair profuse; males have extensive facial hair. The dwarf nose tends to be large and long, and the ears slightly pointed.</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">dwarf.png</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:type="xsd:string">+1 Body, +2 Strength, -1 Quickness, thermographic vision, +2 resist disease</value>
+    </values>
+    <values>
+        <field>RunningMultiplier__c</field>
+        <value xsi:type="xsd:double">2.0</value>
+    </values>
+    <values>
+        <field>Taxonomy__c</field>
+        <value xsi:type="xsd:string">Homo sapiens pumilionis</value>
+    </values>
+    <values>
+        <field>Young__c</field>
+        <value xsi:type="xsd:string">One. Birth weight is 5.6 percent of mother&apos;s weight. Suckling time is more than 15 months.</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Cat</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for illusion spells; +2 dice for conjuring city spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Cat Is stealthy, vain, cunning, and sometimes cruel. Cat loves to ferret out secrets, but dislikes sharing them with others, for she is Cat-Who-Walks-Alone. Cat is an urban totem, at home with mankind, either In their company or as a lonely hunter in city streets and alleyways. Cat shamans are solitary types, committed to no one but themselves.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Cat will toy with an opponent in battle, even when the situation is desperate. She will threaten, sneer, and hiss, displaying her dominance. She will also use showy magic, flashy physical combat. or other irrelevancies in the process of the kill. An unwounded Cat shaman must make a Willpower Test with a Target Number 6 when she wants to cast a combat spell. If the test falls, she casts the least damaging of the spells she knows. If the shaman Is wounded. all this playing around stops. Cat is so fastidiously clean that she suffers a + 1 target modifier to all her tests whenever dirty or unkempt.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Urban</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Illusion</value>
+    </values>
+</CustomMetadata>

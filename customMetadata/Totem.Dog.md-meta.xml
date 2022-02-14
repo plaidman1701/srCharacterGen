@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Dog</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for detection spells; +2 dice for conjuring field and hearth spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Dog is loyal to friends and family. He fights furiously to defend his home and holdings, but is not generally aggressive outside his own territory. Dog loves people, and will defend them pitilessly from dangerous spirits or evil magic. Once a Dog shaman gives his loyalty or love, he will remain loyal even ifthe person he loves is unworthy. A Dog shaman will try to protect humanity from evil magidans at any cost.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Dog is single-minded, to the point of stubbomness. Any time a Dog shaman changes his plans or tactics, his player must make a Willpower Test with a Target Number 4. The test Itself requires one Complex Action as Dog struggles to change his mind.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Urban</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Detection</value>
+    </values>
+</CustomMetadata>

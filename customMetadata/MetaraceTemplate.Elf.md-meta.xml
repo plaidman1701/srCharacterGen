@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Elf</label>
+    <protected>false</protected>
+    <values>
+        <field>Build_Point_Cost__c</field>
+        <value xsi:type="xsd:double">10.0</value>
+    </values>
+    <values>
+        <field>Commentary__c</field>
+        <value xsi:type="xsd:string">Elven eyes are heavily endowed with rod structures. This allows them to see in dim light far better than sapiens.</value>
+    </values>
+    <values>
+        <field>Habitat__c</field>
+        <value xsi:type="xsd:string">In urban areas, elves inhabit standard human structures. In wilderness areas, they prefer to live In structures built of natural materials or living plants.</value>
+    </values>
+    <values>
+        <field>Habits__c</field>
+        <value xsi:type="xsd:string">Elves are nocturnal beings. Their diet is vegetarian. They tend to live In small groups, preferably apart from the rest of humanity. The elf life expectancy is unverified, with possible life spans of several hundred years, but metabolic studies are inconclusive. The elven breeding season is unrestricted. Gestation is 360 days.</value>
+    </values>
+    <values>
+        <field>Identification__c</field>
+        <value xsi:type="xsd:string">The height of the typical elf is 1.9 meters, and his weight is 72 kilograms. Coloration is pale pink to white or ebony. The females have 2 mammae, and all elves have 32 teeth. Nobilis is more slender than sapiens and has a lighter build, though the bone structure and musculature are equally strong. The slenderness is exaggerated in nobilis of Polynesian and Australian aboriginal origin. Elven body hair is sparse, but head hair is usually luxuriant and extremely fine. Elven hair is usually straight or slightly wavy, and Is almost always worn long. There are also several populations showing tightly curled head hair, however. The eyes are almond-shaped; in darker-skinned nobilis they are often slightly protuberant. The ears come to a definite point.</value>
+    </values>
+    <values>
+        <field>Image__c</field>
+        <value xsi:type="xsd:string">elf.png</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:type="xsd:string">+1 Quickness, +2 Charisma, lowlight vision</value>
+    </values>
+    <values>
+        <field>RunningMultiplier__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Taxonomy__c</field>
+        <value xsi:type="xsd:string">Homo sapiens nobilis</value>
+    </values>
+    <values>
+        <field>Young__c</field>
+        <value xsi:type="xsd:string">Usually one, though twins are common. In such cases, only one is nobilis, with the other usually nonviable. Birth weight is 5.2 percent of mother&apos;s weight. Suckling time is more than 25 months.</value>
+    </values>
+</CustomMetadata>

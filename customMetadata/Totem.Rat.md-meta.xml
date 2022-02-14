@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Rat</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for detection and illusion spells; +2 dice for conjuring all Spirits of Man.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Rat is a stealthy thief who is too selfish to share anything, even with his companions. He is also a reluctant warrior who would rather run than fight. Where mankind goes, there also goes Rat, for who else&apos;s bounty can sustain him?</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Rat shamans are usually dirty and unkempt. Rat is a coward , but when he must fight, he fights to kill. Rat dlsllkes worklng out in the open, for a muttered spell from the shadows (or a silenced pistol from a doorway) is more his style. Subtract 1 die for combat spells.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Urban</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Detection;Illusion</value>
+    </values>
+</CustomMetadata>

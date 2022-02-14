@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-size_1-of-3">
+            <lightning-radio-group
+                name={radioGroupName}
+                label={radioLabel}
+                options={radioOptions}
+                value={value}
+                onchange={handleonchange}
+                type="radio"></lightning-radio-group>
+        </div>
+        <div class="slds-size_2-of-3">
+            <slot name="radioContent">Default radioContent</slot>
+        </div>
+    </div>
+</template>

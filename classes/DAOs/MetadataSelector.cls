@@ -20,6 +20,8 @@ public with sharing class MetadataSelector {
         FROM SkillTemplate__mdt]);
     }
 
+
+
     public static Map<Id, MagicianType__mdt> getMagicianTypes() {
         return new Map<Id, MagicianType__mdt>( [
             SELECT Id, Label,
@@ -27,8 +29,10 @@ public with sharing class MetadataSelector {
             BuildPoints__c,
             Description__c,
             ForcePoints__c,
+            RequiresSpellBonus__c,
             SpecialOptions__c,
             TraditionOptions__c,
+            List_Order__c,
             Type__c
             FROM MagicianType__mdt]);
     }
@@ -46,11 +50,60 @@ public with sharing class MetadataSelector {
             Advantages__c,
             Characteristics__c,
             Disadvantages__c,
-            Essence_Loss_Multiple__c,
             Favored_EnvIronment__c,
             Spell_Bonus__c
             FROM Totem__mdt]);
     }
+
+    public static Map<Id, List<TotemAdjustment__mdt>> getTotemAdjustments() {
+
+        Map<Id, List<TotemAdjustment__mdt>> returnMap = new Map<Id, List<TotemAdjustment__mdt>>();
+
+        for (TotemAdjustment__mdt adju : [
+            SELECT Id, Label,
+            Category__c,
+            Description__c,
+            Totem__c,
+            Value__c
+            FROM TotemAdjustment__mdt]) {
+
+                if (!returnMap.containsKey(adju.Totem__c)) {
+                    returnMap.put(adju.Totem__c, new List<TotemAdjustment__mdt>());
+                }
+
+                returnMap.get(adju.Totem__c).add(adju);
+
+            }
+
+
+
+
+
+           return returnMap;
+    }
+
+    public static Map<Id, SpellTemplate__mdt> getSpellTemplates() {
+        return new Map<Id, SpellTemplate__mdt>( [
+            SELECT Id, Label,
+            Category__c,
+            DamageLevel__c,
+            Description__c,
+            Drain__c,
+            Duration__c,
+            ElementalEffect__c,
+            MatterBased__c,
+            Options__c,
+            Range__c,
+            RequiresName__c,
+            Source__c,
+            Subcategory__c,
+            Target__c,
+            Type__c,
+            Variants__c
+            FROM SpellTemplate__mdt]);
+    }
+
+
 
     // public static List<SkillTemplate__mdt> getSkillTemplates() {
     //     return [
@@ -119,7 +172,10 @@ public with sharing class MetadataSelector {
         response.MetaraceTemplateMap = getMetaraceTemplates();
         response.MetaraceAdjustmentMap = getMetaraceAdjustments();
         response.skillTemplateMap = getSkillTemplates();
-
+        response.magicianTypeMap = getMagicianTypes();
+        response.totemMap = getTotems();
+        response.spellTemplateMap = getSpellTemplates();
+        response.totemAdjustmentMap = getTotemAdjustments();
         return response;
     }
 
@@ -132,6 +188,23 @@ public with sharing class MetadataSelector {
 
         @AuraEnabled
         public Map<Id, SkillTemplate__mdt> skillTemplateMap;
+
+        @AuraEnabled
+        public Map<Id, MagicianType__mdt> magicianTypeMap;
+
+        @AuraEnabled
+        public Map<Id, Totem__mdt> totemMap;
+
+        @AuraEnabled
+        public Map<Id, List<TotemAdjustment__mdt>> totemAdjustmentMap;
+
+        @AuraEnabled
+        public Map<Id, SpellTemplate__mdt> spellTemplateMap;
+
+
+
+        // Totem__mdt
+
         // @AuraEnabled
         // public List<SkillTemplate__mdt> skillTemplateList;
 

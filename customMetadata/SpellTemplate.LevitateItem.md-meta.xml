@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Levitate Item</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+    <values>
+        <field>DamageLevel__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Levitation allows a magician to lift an item or person from the ground and move him or it around. The maximum &quot;distance&quot; that the target can be moved In meters is the magician&apos;s Magic Rating times the number of successes. This distance can be expressed as vertical distance (height), horizontal distance, or any combination of the two. A magician with a distance result of 12, for example, could move an object 12 meters horizontally, or 12 meters vertically or any combination of the two, as long as the total distance (horizontal plus vertical) equalled 12. This means that 10 horizontal and 2 vertical is fine (10 + 2 = 12), as is 5 horizontal and 7 vertical (5 + 7 = 12). The sum of the vertical and horizontal components must equal the &quot;distance.&quot; All movement is figured from the starting point of the target. The magician&apos;s target number for the Spell Success Test Is Increased by + 1 for every 1OO kilograms of mass the object has. (Figure a living being has 50 kilograms per point of body, and a vehicle 1,000 kilograms.) A magician can move a levitated object anywhere as long as the spell Is maintained and the target stays in view. Objects can move the full &quot;distance&quot; within one Action Phase. If the spellcaster is attempting to levitate an item attached or held by a living being, that being Is allowed to make a Strength Test agalnst a target number equal to the Force of the spell. Reduce the caster&apos;s successes by the successes from this test. The caster must have at least 1 net success to levitate the Item away.</value>
+    </values>
+    <values>
+        <field>Drain__c</field>
+        <value xsi:type="xsd:string">[(F/2)+1]L</value>
+    </values>
+    <values>
+        <field>Duration__c</field>
+        <value xsi:type="xsd:string">Sustained</value>
+    </values>
+    <values>
+        <field>ElementalEffect__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>MatterBased__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Options__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Range__c</field>
+        <value xsi:type="xsd:string">LOS</value>
+    </values>
+    <values>
+        <field>RequiresName__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>Source__c</field>
+        <value xsi:type="xsd:string">SRII</value>
+    </values>
+    <values>
+        <field>Subcategory__c</field>
+        <value xsi:type="xsd:string">Telekinetic Manipulations</value>
+    </values>
+    <values>
+        <field>Target__c</field>
+        <value xsi:type="xsd:string">4</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Physical</value>
+    </values>
+    <values>
+        <field>Variants__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

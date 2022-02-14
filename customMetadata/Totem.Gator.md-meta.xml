@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Gator</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for combat and detection spells; +2 dice for conjuring spirits of the swamp, lake, or river (If a wlldemess totem chosen), or city spirits (if an urban totem chosen).</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Gator Is a greater fighter and a big eater. He is swift to act when action is called for, but lethargic, even torpid, the rest of the time. Gator is often ill-tempered, especially when prodded to action. But once he grips, he holds, and will not tum away from a path he has chosen.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Gator Is lazy and greedy. As an eater, he prefers to glut himself with food and then laze around. As a shadowrunner. he prefers a job with a big payoff that will let him take It easy until all the money is gone. It can take some hefty argument to make Gator exert himself. His greed makes him loathe to share material goods, and he will almost never make loans or pick up a check. Once on a job, he goes for the direct solution and is impatient of subtlety. To make a Gator shaman break off a fight, a chase, or other direct action takes a Willpower Test with a Target Number 6. He also subtracts 1 die for illusion spells.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Swamps or rivers in the wildeness. Gator is also an urban totem because myth, if not reality, has placed him in the sewers of the great cities. In magic, myth is as good as reality and so Gator thrives among urban shamans.</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Combat;Detection</value>
+    </values>
+</CustomMetadata>

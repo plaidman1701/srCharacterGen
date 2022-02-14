@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Snake</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for healing, illusion, and detection spells. As a wildemess totem, +2 dice for conjuring any one Spirit of the Land (shaman&apos;s choice). As an urban totem, +2 dice for conjuring any one Spirit of Man (shaman&apos;s choice).</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Snake is a wise healer who dwells in many places and knows many secrets. Snake is a good councilor, but exacts a price for her advice. Snake is adaptable, and can confuse the senses of enemies.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">Snake will not fight unless she must defend herself or else hunt to eat. Snake shamans have a -1 die modifier for any spells cast during combat. Snake shamans are obsessed with learning secrets and will take enormous risks to do so.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Anywhere except mountains</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Health;Illusion;Detection</value>
+    </values>
+</CustomMetadata>

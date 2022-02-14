@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Shark</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for combat and detection spells; +2 dice for conjuring sea spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Shark Is a cold, relentless hunter, who Is savage In combat. With no fixed home, he knows all the secrets ofthe sea. Shark can be a totem ofshamans from any sea or shore-dweiling culture, indudlng the Hawalian kahunas, the Japanese miko, Haltlan houngans, Eskimo angekok, as well as the Native Americans ofthe Padfic Northwest and any surviving shamans among the few Australian aborigines still living in Drearntime.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">A Shark shaman may go berserk when wounded in combat or if he kills an opponent. Whenever one of these conditions occurs, the shaman&apos;s player must make a Willpower Test, with an injury-modified Target Number 4. He will go berserk for 3 turns, minus 1 turn for every success. If he scores 3 or more successes, he won&apos;t go off. A berserk shaman will attack the closest living thing. using his most powerful weapons (either magical or physical). A berserk Shark shaman fights to kill. He may, alternatively, continue to hurl magic or use weapons against the Inert body of his last victim, savagely blasting or hacking it. Even if he is not berserk, Shark believes that the only good enemy is a dead enemy. If challenged, he does not waste time with threats or bragging, but strikes, usually to kill.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">On or by the sea</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Combat;Detection</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Owl</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for any sorcery, conjuring or enchanting by night.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Owl is a wise and silent watcher. She rarely speaks, but she sees much. Owl rules the night skies, and so what she hunts, she finds. Owl is friendly to her companions, but terrible to her enemies. By day, she is practically helpless.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">+2 to all target numbers (even non-magical ones) when in direct sunlight. Even when Owl is sheltered from the sun, add +2 to all target numbers for magic during the daytime.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Any urban or wilderness location, but spell-leamlng is conducted by night</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

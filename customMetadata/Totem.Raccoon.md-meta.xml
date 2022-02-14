@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Raccoon</label>
+    <protected>false</protected>
+    <values>
+        <field>Advantages__c</field>
+        <value xsi:type="xsd:string">+2 dice for manipulation spells; +2 dice for conjuring city spirits.</value>
+    </values>
+    <values>
+        <field>Characteristics__c</field>
+        <value xsi:type="xsd:string">Raccoon is a clever bandit who can break open any trap to remove the bait. He can also escape any danger, for his paws are like cunning hands. Raccoon fights when he must, but prefers strategy and trickery.</value>
+    </values>
+    <values>
+        <field>Disadvantages__c</field>
+        <value xsi:type="xsd:string">A Raccoon shaman is a loner. Like Coyote, his intense curiosity makes him ignore danger in any quest for information. Raccoon can be greedy (this is a thief totem), but Raccoon shamans will steal only the very best, for petty thefts and violent robberies are beneath their dignity. Raccoon shamans suffer a -1 die modifier for combat spells.</value>
+    </values>
+    <values>
+        <field>Favored_EnvIronment__c</field>
+        <value xsi:type="xsd:string">Anywhere but the desert</value>
+    </values>
+    <values>
+        <field>Spell_Bonus__c</field>
+        <value xsi:type="xsd:string">Manipulation</value>
+    </values>
+</CustomMetadata>
