@@ -9,39 +9,42 @@
     ></c-sr_tile-list-wrapper> -->
 
     <c-sr_tile-list-wrapper
-        left-side-list={orderedSkillTemplateList}
-        right-side-list={orderedSkillList}
-        section-labels={skillSectionLabels}
+        left-side-list={skillTemplateCollectionContainer.dataList}
+        right-side-list={selectedSkills}
+        section-labels={skillTemplateCollectionContainer.sectionLabels}
         onleftclick={handleTemplateListClick}
         onrightclick={handleSkillListClick}
     >
+    <!-- right-side-list={orderedSkillList} -->
 
     <!-- obj-left-side={skillTemplateObj}
     obj-right-side={selectedSkillsObj} -->
 
 
-    <template if:true={selectedSkillTemplateId}>
+    <template if:true={newSkillObj}>
         <span slot="selectedContent">
             <c-sr_tile-detail
-            description={skillTemplateDescription}>
+            description={selectedTemplateObj.Description__c}>
 
             <span slot="detailOptions">
                 <lightning-combobox
                 placeholder={labels.chooseRating}                
                 options={skillRatingOptions}
-                value={selectedSkillRating}
+                value={newSkillObj.Rating__c}
                 onchange={handleRatingChange}
                 
                 ></lightning-combobox>
 
                 <template if:true={selectedTemplateObj.Requires_Name__c}>
-                    <lightning-input type="text" label="Skill Name" value={skillName} onchange={handleSkillNameChange}></lightning-input>
+                    <lightning-input type="text" label="Skill Name" value={newSkillObj.Name} onchange={handleSkillNameChange}></lightning-input>
                 </template>
 
 
                 <div onclick={handleButtonClick}>
                     <button data-name="save" class="slds-button slds-button_neutral" disabled={disableSave}>{labels.save}</button>
                     <button data-name="delete" class="slds-button slds-button_neutral" disabled={disableDelete}>{labels.delete}</button>
+                    <button data-name="cancel" class="slds-button slds-button_neutral">{labels.cancel}</button>
+
                 </div>
             </span>           
 

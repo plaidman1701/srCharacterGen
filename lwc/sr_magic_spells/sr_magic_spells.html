@@ -1,0 +1,57 @@
+<template>
+    <c-sr_tile-list-wrapper
+    section-labels={spellTemplateCollectionContainer.sectionLabels}
+    left-side-list={spellTemplateListToDisplay}
+    onleftclick={handleSpellTemplateClick}
+    >
+    <template if:true={selectedSpellTemplateObj}>
+        <span slot="selectedContent">
+            <div onchange={handleSpellDetailChange}>
+                {selectedSpellTemplateObj.Label}<br/>
+                {selectedSpellTemplateObj.Description__c}<br/>
+                {selectedDrain}<br />
+                {selectedDuration}<br />
+
+                <template if:true={spellTemplateVariants}>
+                    <lightning-radio-group name="spellTemplateVariants"
+                    label="Variants"
+                    options={spellTemplateVariants}
+                    value={newSpellAssign.SpellTemplateVariantIndex__c}
+                    data-attribute-name="SpellTemplateVariantIndex__c"
+                    type="radio"></lightning-radio-group>
+                </template>
+
+                <lightning-combobox
+                    data-attribute-name="Rating__c"               
+                    options={oneToSixCombobox}
+                    value={newSpellAssign.Rating__c}></lightning-combobox>
+
+                <template if:true={selectedSpellTemplateObj.RequiresName__c}>
+
+                    <lightning-input
+                    value={newSpellAssign.Name}
+                    data-attribute-name="Name"                    
+                    type="text" label="Enter some text"></lightning-input>
+
+                </template>
+
+                <template if:true={selectedSpellTemplateObj.Options__c}>
+                    <lightning-combobox
+                        data-attribute-name="Name"               
+                        options={spellOptionList}
+                        value={newSpellAssign.Name}></lightning-combobox>
+                </template>
+
+                <div onclick={handleButtonClick}>
+                    <button data-name="save" class="slds-button slds-button_neutral" disabled={disableSave}>{labels.save}</button>
+                    <button data-name="delete" class="slds-button slds-button_neutral" disabled={disableDelete}>{labels.delete}</button>
+                    <button data-name="cancel" class="slds-button slds-button_neutral">{labels.cancel}</button>
+                </div>
+
+
+            </div>
+
+        </span>
+    </template>
+    </c-sr_tile-list-wrapper>
+</template>

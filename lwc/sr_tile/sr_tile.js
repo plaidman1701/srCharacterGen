@@ -17,6 +17,10 @@ export default class Sr_tile extends LightningElement {
         sendEvt(this, 'tileclick', { Id: this.tileObj.Id });
     }
 
+    get tileLabel() {
+        return this.tileObj.Label || this.tileObj.Name;
+    }
+
     get drain() {
          if (!this.tileObj.Drain__c) return;
 

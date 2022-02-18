@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 
 import helper from './helpers/helper.js';
-import { oneToSixCombobox } from "c/sr_jsModules";
+import { oneToSixCombobox, placeholderIdGenerator } from "c/sr_jsModules";
 
 const LABELS = {
     selectMetarace: "Select Metarace",
@@ -19,9 +19,18 @@ const LABELS = {
 
 
 export default class Sr_metaraceAndAtts extends LightningElement {
-    @api metaraceTemplateMap = {};
-    // @api metaraceAdjustmentMap = {};
-    @api selectedChar = {};
+    @api metaraceCollectionContainer;
+   
+    _selectedChar = {};
+    @api
+    get selectedChar() {
+        return this._selectedChar;
+    }
+    set selectedChar(value) {
+        this._selectedChar = Object.assign({}, value);
+    }
+
+
     @api attMaxValues = {};
     @api adjuEffects = {};
 
@@ -49,8 +58,12 @@ export default class Sr_metaraceAndAtts extends LightningElement {
     //     return returnObj;
     // }    
 
+    metaraceRadioName = placeholderIdGenerator.next().value;
+
     get selectedMetaraceTemplate() {
-        return this.metaraceTemplateMap[this.selectedChar.MetaraceTemplate__c];
+//        return this.metaraceTemplateMap[this.selectedChar.MetaraceTemplate__c];
+        return this.metaraceCollectionContainer?.dataObj[this.selectedChar?.MetaraceTemplate__c];
+
     };
 
     _attComboxValues = {};
@@ -58,11 +71,6 @@ export default class Sr_metaraceAndAtts extends LightningElement {
         if (this.attMaxValues) {
             this._attComboxValues = {};
             for (const [key, value] of Object.entries(this.attMaxValues)) {
-                // let options = [];
-                // for (let i = 1; i <= value; ++i) {
-                //     options.push({ label: i, value: i});
-                // }
-                // this._attComboxValues[key] = options;
                 this._attComboxValues[key] = oneToSixCombobox;
 
             }           
@@ -73,26 +81,32 @@ export default class Sr_metaraceAndAtts extends LightningElement {
 
     labels = LABELS;
 
-    selectedOptions = {}; // options selcted by the player, to be sent up in an event
+    //selectedOptions = {}; // options selcted by the player, to be sent up in an event
 
+    _metaraceOptions;
     get metaraceOptions() {
-        let returnList = [];
+        if (this._metaraceOptions) return this._metaraceOptions;
+
+        this._metaraceOptions = [];
+        if (!this.metaraceCollectionContainer) return this._metaraceOptions;
 
         // if (!this.metaraceTemplateMap) return returnList;
 
-        for (const [key, value] of Object.entries(this.metaraceTemplateMap)) {
-            returnList.push( {label: value.Label, value: key} );
+        for (const metarace of this.metaraceCollectionContainer.dataList) {
+            this._metaraceOptions.push( {label: metarace.Label, value: metarace.Id} );
           }
 
-        return returnList;
+        return this._metaraceOptions;
     }
 
     get selectedMetaraceName() {
-        return this.metaraceTemplateMap[this.selectedChar.MetaraceTemplate__c].Label;
+        return this.selectedMetaraceTemplate?.Label;
+//        return this.selectedMetaraceTemplate[this.selectedChar.MetaraceTemplate__c]?.Label;
+
     }
 
     connectedCallback() {
-        helper.setInitValues(this);
+        //helper.setInitValues(this);
     }
 
     handleAttChange(event) {
@@ -107,6 +121,4 @@ export default class Sr_metaraceAndAtts extends LightningElement {
         helper.sendEvt(this);
 
     }
-
-
 }

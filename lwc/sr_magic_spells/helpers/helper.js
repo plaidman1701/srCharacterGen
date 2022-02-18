@@ -1,4 +1,4 @@
-import { sortByListOrdering, sendEvt, elementalCategories } from "c/sr_jsModules";
+import { sendUpdateEvent, Enums, elementalCategories } from "c/sr_jsModules";
 
 
 const spellOrdering = [
@@ -10,6 +10,8 @@ const spellOrdering = [
 ];
 
 function filterAndBuildSpellTemplateList(cmp) {
+
+
     // adjust for types
     let permittedCategories; // null if all allowed
     let matterBasedRequired;
@@ -31,9 +33,9 @@ function filterAndBuildSpellTemplateList(cmp) {
             elementalEffect = elementalCategories[cmp.selectedChar.ElementalOption__c].elementalEffect;
         }
     }
-    //console.log('permittedCategories:' + (permittedCategories) + Array.isArray(permittedCategories));
-    //console.log('matterBasedRequired:' + (matterBasedRequired));
-    //console.log('elementalEffect:' + (elementalEffect));
+    console.log('permittedCategories:' + (permittedCategories) + Array.isArray(permittedCategories));
+    console.log('matterBasedRequired:' + (matterBasedRequired));
+    console.log('elementalEffect:' + (elementalEffect));
 
     let filteredSpellTemplateIdSet = new Set();
 
@@ -97,55 +99,31 @@ function filterAndBuildSpellTemplateList(cmp) {
     //console.table(cmp.spellTemplateListToDisplay);
 }
 
-function filterAndBuildSpellAssignList(cmp) {
-    let spellAssignListToDisplay = cmp.selectedSpellAssigns
-    .filter(spellAssign => cmp.filteredSpellTemplateIdSet.has(spellAssign.SpellTemplateId__c))
-    .map(spellAssign => {
-        let spellTemplate = cmp.spellTemplateMap[spellAssign.SpellTemplateId__c];
-
-        return {
-            Id: spellAssign.Id,
-            Label: spellAssign.Name,
-            Category__c: spellTemplate.Category__c,
-            Subcategory__c: spellTemplate.Subcategory__c
-        };
-    });
-
-    cmp.spellAssignListToDisplay =
-        Array.from(spellAssignListToDisplay.sort(sortByListOrdering(spellOrdering, ...cmp.spellSectionLabels)));
-};
-
 let helper = {
-    sendEventToParent: async (cmp) => {
-        // sendEvt(cmp, "magic_event", {
-        //     characterData: {
-        //         MagicianTypeId__c: cmp.magicianTypeId,
-        //         MagicalTradition__c: cmp.magicalTradition,
-        //         TotemId__c: cmp.totemId,
-        //         ElementalOption__c: cmp.elementalOption
-        //     }
-        // }); 
-        sendEvt(cmp, "magic_event", {
-            characterData: cmp.selectedChar });        
 
-    },
-
-    buildSpellListsToDisplay: async (cmp) => {
+    buildSpellListsToDisplay: (cmp) => {
         if (!cmp.magicianTypeObj?.AllowsSpells__c || !cmp.spellTemplateCollectionContainer) {
-            cmp.spellTemplateListToDisplay = undefined;
+            cmp.spellTemplateListToDisplay = [];
             return;
         }
 
-        cmp.selectedSpellTemplateId = undefined;
-        cmp.selectedSpellAssignId = undefined;
+        console.log('buildSpellListsToDisplay magicianTypeObj');
+        console.log(JSON.stringify(cmp.magicianTypeObj));
 
+        // cmp.selectedSpellTemplateId = undefined;
+        // cmp.selectedSpellAssignId = undefined;
+
+        cmp.newSpellAssign = undefined;
+        
         filterAndBuildSpellTemplateList(cmp);
         //filterAndBuildSpellAssignList(cmp);
     },
 
-    handleSpellTemplateClick: (cmp) => {
-
+    updateSpellAssign: (cmp, crudType) => {
+        sendUpdateEvent(cmp, Enums.AssignObjTypes.Spell, cmp.newSpellAssign, crudType);
     }
-}
+
+};
 
 export default helper;
+

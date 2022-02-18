@@ -1,33 +1,34 @@
 <template>
-    <div class="slds-grid slds-gutters" onchange={handleAttChange}>
-        <div class="slds-col slds-size_1-of-3">
-            <lightning-radio-group name="metaraceGroup"
-                label={labels.selectMetarace}
-                options={metaraceOptions}
-                value={selectedChar.MetaraceTemplate__c}
-                data-attributename="MetaraceTemplate__c"
-                
-                type="radio"></lightning-radio-group>
+    <div class="slds-grid slds-wrap slds-gutters" onchange={handleAttChange}>
+        <div class="slds-col slds-size_1-of-1">
 
-            <lightning-formatted-text value={selectedMetaraceTemplate.Label}></lightning-formatted-text><br />
-            <lightning-formatted-number value={selectedMetaraceTemplate.Build_Point_Cost__c}></lightning-formatted-number><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Taxonomy__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Identification__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Habits__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Habitat__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Young__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Commentary__c}></lightning-formatted-text><br />
-            <lightning-formatted-text value={selectedMetaraceTemplate.Notes__c}></lightning-formatted-text><br />
+            <!-- <c-sr_radio-list
+            radio-options={metaraceOptions}
+            radio-label={labels.selectMetarace}
+            value={selectedChar.MetaraceTemplate__c}
+            
+            onradio_event={handleMetaraceChange}
+            >
+            <span slot="radioContent">
+                {selectedMetaraceTemplate.Label}<br />
+                {selectedMetaraceTemplate.Build_Point_Cost__c}<br />
+                {selectedMetaraceTemplate.Taxonomy__c}<br />
+                {selectedMetaraceTemplate.Identification__c}<br />
+                {selectedMetaraceTemplate.Habits__c}<br />
+                {selectedMetaraceTemplate.Habitat__c}<br />
+                {selectedMetaraceTemplate.Young__c}<br />
+                {selectedMetaraceTemplate.Commentary__c}<br />
+                {selectedMetaraceTemplate.Notes__c}<br />
 
-            {selectedMetaraceTemplate.Label}<br />
-            {selectedMetaraceTemplate.Build_Point_Cost__c}<br />
-            {selectedMetaraceTemplate.Taxonomy__c}<br />
-            {selectedMetaraceTemplate.Identification__c}<br />
-            {selectedMetaraceTemplate.Habits__c}<br />
-            {selectedMetaraceTemplate.Habitat__c}<br />
-            {selectedMetaraceTemplate.Young__c}<br />
-            {selectedMetaraceTemplate.Commentary__c}<br />
-            {selectedMetaraceTemplate.Notes__c}<br />
+            </span>
+        </c-sr_radio-list> -->
+        <lightning-radio-group name={metaraceRadioName}
+            label={labels.selectMetarace}
+            options={metaraceOptions}
+            value={selectedChar.MetaraceTemplate__c}
+            data-attributename="MetaraceTemplate__c"
+            type="radio"></lightning-radio-group>
+
         </div><!-- col -->
         <div class="slds-col slds-size_1-of-3">
             {selectedMetaraceName}<br />
@@ -70,18 +71,12 @@
 
                 {labels.atts.reaction}: {adjuEffects.atts.Reaction__c.text}<br />
                 {labels.initiative}: {adjuEffects.atts.Initiative.text}<br />
-
-
         </div>
         <div class="slds-col slds-size_1-of-3">
             <template for:each={adjuEffects.adjuListText} for:item="bonus">
                 {bonus}<br key={bonus}/>
             </template>
         </div>
-
-
-
-
     </div><!-- grid -->
     
 </template>

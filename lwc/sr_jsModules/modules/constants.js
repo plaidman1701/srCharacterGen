@@ -8,3 +8,10 @@ export const oneToSixCombobox = [
     { label: "5", value: 5},
     { label: "6", value: 6}    
 ];
+
+export const elementalCategories = {
+    "Earth": { category: "Manipulation", matterBased: true},
+    "Air": { category: "Detection"},
+    "Fire": { category: "Combat", elementalEffect: "fire"},
+    "Water": { category: "Illusion"}
+};

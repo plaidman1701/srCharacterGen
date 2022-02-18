@@ -44,6 +44,7 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Charisma__c',
             'MetaraceTemplate__c',
             'TotemId__c',
+            'ElementalOption__c',
             'MagicalTradition__c',
             'MagicianTypeId__c'
         })
@@ -51,6 +52,7 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
 
         qFactory.subSelectQuery('SkillAssigns__r')
         .selectFields(new List<String>{
+            'Name',
             'Rating__c',
             'SkillTemplateId__c',
             'Special_Skill_Name__c'
@@ -59,10 +61,14 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
         qFactory.subSelectQuery('Spell_Assigns__r')
         .selectFields(new List<String>{
             'Name',
-            'Rating__c',
-            'SpellTemplateId__c',
             'Drain__c',
-            'Duration__c'
+            'Duration__c',
+            'Exclusive__c',
+            'Fetish__c',
+            'Rating__c',
+            'SpecialName__c',
+            'SpellTemplateId__c',
+            'SpellTemplateVariantIndex__c'
         });
 
         return (SRcharacter__c) Database.query( qFactory.toSOQL() );

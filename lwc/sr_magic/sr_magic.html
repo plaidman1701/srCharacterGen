@@ -1,57 +1,31 @@
 <template>
     <lightning-tabset >
-        <lightning-tab label={labels.tabs.typeAndTradition}>
-            <c-sr_radio-list
-                radio-options={magicianTypeRadioOptions}
-                radio-label={labels.magicianType}
-                value={selctedMagicianTypeId}
-                onradio_event={handleTypeChange}>
-                <span slot="radioContent">hey there {selctedMagicianTypeId}</span>
-            </c-sr_radio-list>
+        <div onchange={handleradio_change}>
+            <lightning-tab label={labels.tabs.typeAndTradition}>
+                <c-sr_magic_type-and-tradition
+                selected-char={selectedChar}
+                magic-collection-containers={magicCollectionContainers}
+                onupdateevent={handleUpdateEvent}
+                >
+                </c-sr_magic_type-and-tradition>
 
-            <template if:true={magicianTypeObj}>
-                
-
-                <template if:true={magicianTypeTraditions}>
-                    <c-sr_radio-list
-                    radio-options={magicianTypeTraditions}
-                    radio-label={labels.traditions}
-                    value={selectedChar.MagicalTradition__c}
-                    onradio_event={handleTraditionChange}>
-                    <span slot="radioContent">hey there {selectedChar.MagicalTradition__c}</span>
-                    </c-sr_radio-list>
-                </template>
-
-                <template if:true={availableTotems}>
-                    <c-sr_radio-list
-                    radio-options={availableTotems}
-                    radio-label={labels.totems}
-                    value={selectedChar.TotemId__c}
-                    
-                    onradio_event={handleTotemChange}
-                    >
-                    <span slot="radioContent">
-                        <div class="slds-text-heading_small slds-m-bottom_small">{labels.characteristics}</div>
-                        <p class="slds-m-bottom_small">{selectedTotemObj.Characteristics__c}</p>
-                        <div class="slds-text-heading_small slds-m-bottom_small">{labels.favouredEnvironment}</div>
-                        <p class="slds-m-bottom_small">{selectedTotemObj.Favored_EnvIronment__c}</p>
-                        <div class="slds-text-heading_small slds-m-bottom_small">{labels.advantagesDisadvantages}</div>
-                        <p class="slds-m-bottom_small">{selectedTotemObj.Advantages__c}</p>
-                        <p>{selectedTotemObj.Disadvantages__c}</p>
-                    </span>
-                    </c-sr_radio-list>
-                </template>
-            </template>
-        </lightning-tab>
-        <template if:true={showSpells}>
-            <lightning-tab label={labels.tabs.spells}>
-                <c-sr_tile-list-wrapper
-                left-side-list={spellTemplateListToDisplay}
-                section-labels={spellSectionLabels}
-
-            ></c-sr_tile-list-wrapper>
             </lightning-tab>
-        </template>
+
+                <lightning-tab label={labels.tabs.spells}>
+                    <c-sr_magic_spells
+                    selected-char={selectedChar}
+                    magic-collection-containers={magicCollectionContainers}
+                    spell-assigns={spellAssigns}
+                    onupdateevent={handleUpdateEvent}
+                    >
+
+                    </c-sr_magic_spells>
+
+                </lightning-tab>
+
+
+
+        </div>
 
     </lightning-tabset>
 </template>

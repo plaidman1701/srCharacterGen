@@ -1,0 +1,34 @@
+<template>
+    <div onchange={handleradio_change}>
+        <lightning-radio-group name="magicianTypeRadioName"
+        label={labels.magicianType}
+        options={magicianTypeRadioOptions}
+        value={selctedMagicianTypeId}
+        data-attribute-name="MagicianTypeId__c"
+        type="radio"></lightning-radio-group>
+    
+        <template if:true={magicianTypeObj}>
+            <lightning-radio-group name="magicianTypeTraditionRadioName"
+                label={labels.traditions}
+                options={magicianTypeTraditionOptions}
+                value={selectedChar.MagicalTradition__c}
+                data-attribute-name="MagicalTradition__c"
+                type="radio"></lightning-radio-group>
+    
+            <lightning-radio-group name="elementalRadioName"
+                label={labels.elementalOptions}
+                options={elementalOptions}
+                value={selectedChar.ElementalOption__c}
+                data-attribute-name="ElementalOption__c"
+                type="radio"></lightning-radio-group>
+    
+            <lightning-radio-group name="totemRadioName"
+                label={labels.totems}
+                options={availableTotemOptions}
+                value={selectedChar.TotemId__c}
+                data-attribute-name="TotemId__c"
+                type="radio"></lightning-radio-group>
+        </template>
+    </div>
+
+</template>

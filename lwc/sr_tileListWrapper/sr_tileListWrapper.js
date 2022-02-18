@@ -10,7 +10,7 @@ export default class Sr_tileListWrapper extends LightningElement {
     @api sectionLabels = [];
 
     connectedCallback() {
-        console.log('Sr_tileListWrapper');
+        //console.log('Sr_tileListWrapper');
         // console.log(JSON.stringify(this.leftSideList));
         // console.log(JSON.stringify(this.rightSideList));
         // console.log(Array.isArray(this.leftSideList));

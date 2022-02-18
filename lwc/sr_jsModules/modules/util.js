@@ -1,9 +1,9 @@
-import ExternalDataSourceId from '@salesforce/schema/Product2.ExternalDataSourceId';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export const sendEvt = (cmp, evtName, payload) => {
+export function sendEvt(cmp, evtName, payload) {
     const evt = new CustomEvent(evtName, { detail: payload });
     cmp.dispatchEvent(evt);
+
 };
 
 export const popToast = (cmp, {...toastParams}) => {
@@ -38,6 +38,9 @@ export const sortByLabel = (a, b) => {
 
 export const sortByListOrdering = (ordering, h1label, h2label) => {
     return function(a, b) {
+        // check for List_Order__c
+        if (a.List_Order__c && b.List_Order__c) return a.List_Order__c - b.List_Order__c;
+
         // top-level
         let aH1Index;
         let bH1Index;
@@ -45,33 +48,39 @@ export const sortByListOrdering = (ordering, h1label, h2label) => {
         let aH2List;
         let bH2List;
 
-        for (let i = 0; i < ordering.length; ++i) {
-            if (ordering[i][0].toLowerCase() === a[h1label].toLowerCase()) {
-                aH1Index = i;
-                aH2List = ordering[i];
+        if (h1label) {
+            // check for h1
+            for (let i = 0; i < ordering.length; ++i) {
+                if (ordering[i][0].toLowerCase() === a[h1label].toLowerCase()) {
+                    aH1Index = i;
+                    aH2List = ordering[i];
+                }
+    
+                if (ordering[i][0].toLowerCase() === b[h1label].toLowerCase()) {
+                    bH1Index = i;
+                    bH2List = ordering[i];
+                }
             }
-
-            if (ordering[i][0].toLowerCase() === b[h1label].toLowerCase()) {
-                bH1Index = i;
-                bH2List = ordering[i];
+    
+            if (aH1Index !== bH1Index) {
+                return (aH1Index > bH1Index ? 1 : -1);
             }
         }
 
-        if (aH1Index !== bH1Index) {
-            return (aH1Index > bH1Index ? 1 : -1);
+        if (h2label) {
+            // top-level same, second-level
+            // -1 if not found, so they come first
+            let aH2Index = aH2List.indexOf(a[h2label]);
+            let bH2Index = bH2List.indexOf(b[h2label]);
+
+            if (aH2Index !== bH2Index) {
+                return (aH2Index > bH2Index ? 1 : -1);
+            }
         }
 
-        // top-level same, second-level
-        // -1 if not found, so they come first
-        let aH2Index = aH2List.indexOf(a[h2label]);
-        let bH2Index = bH2List.indexOf(b[h2label]);
+        // same sub, go by label or name
 
-        if (aH2Index !== bH2Index) {
-            return (aH2Index > bH2Index ? 1 : -1);
-        }
-
-        // same sub, go by label
-        return (a.Label > b.Label ? 1 : -1);
+        return ((a.Label || a.Name) > (b.Label || b.Name) ? 1 : -1);
     };
 }
 
@@ -79,10 +88,10 @@ export const sortByListOrdering = (ordering, h1label, h2label) => {
 //export const buildListForDisplay = (entries, ordering, h1label, h2label) => {
 export const buildListForDisplay = (entries, h1label, h2label) => {
 
-    console.log('buildListForDisplay');
-    console.log(JSON.stringify(entries));
-    console.log(JSON.stringify(h1label));
-    console.log(JSON.stringify(h2label));
+    // console.log('buildListForDisplay');
+    // console.log(JSON.stringify(entries));
+    // console.log(JSON.stringify(h1label));
+    // console.log(JSON.stringify(h2label));
 
 
 
@@ -96,8 +105,8 @@ export const buildListForDisplay = (entries, h1label, h2label) => {
 
     entries.forEach(entry => {
         // the list is sorted, so the rest is easy
-        let h1value = entry[h1label];
-        let h2value = entry[h2label];
+        let h1value = !!h1label ? entry[h1label] : undefined;
+        let h2value = !!h2label ? entry[h2label] : undefined;
 
         if (!h1value) {
             // no top-level
@@ -137,6 +146,8 @@ export const buildListForDisplay = (entries, h1label, h2label) => {
         h2obj.entries.push(entry);
     });
 
+    // console.log('done buildListForDisplay');
+
     return returnObj;
     
 };
@@ -149,4 +160,58 @@ function* infiniteIds() {
     while (true) {
         yield `placeholderId${index++}`;
     }
+}
+
+export class CollectionContainer {
+    dataObj;
+    dataList;
+    sectionLabels;
+    orderingObj;
+
+    constructor(dataObj, orderingObj, sectionLabels) {
+        this.dataObj = dataObj;
+        this.orderingObj = orderingObj;
+        this.sectionLabels = sectionLabels || []; // empty array
+
+        this.dataList = Object.entries(this.dataObj).map(([key, value]) => value);
+
+        this.dataList =
+            Array.from(this.dataList.sort(sortByListOrdering(this.orderingObj, ...this.sectionLabels )));
+
+            //console.log('constructed');
+           // console.table(this.dataList);
+          //  console.log(this.sectionLabels);
+    }
+}
+
+export class UpdateWrapper{
+    updateType;
+    updateObj;
+    crudType;
+
+    constructor(updateType, updateObj, crudType) {
+        this.updateType = updateType;
+        this.updateObj = updateObj;
+        this.crudType = crudType;
+    }    
+}
+
+export class Enums {
+    static Character = Symbol("Character");
+
+    static AssignObjTypes = {
+        Skill: Symbol("Skill"),
+        Spell: Symbol("Spell")
+    };
+
+    static CrudTypes = {
+        Save: Symbol("Save"),
+        Delete: Symbol("Delete")
+    };
+}
+
+
+export function sendUpdateEvent(cmp, updateType, updateObj, crudType) {
+    sendEvt(cmp, "updateevent", new UpdateWrapper(updateType, updateObj, crudType));
+
 }

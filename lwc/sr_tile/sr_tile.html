@@ -1,6 +1,6 @@
 <template>
     <div class="tileContainer slds-m-bottom_small slds-size_1-of-1 slds-clearfix" onclick={handleOnClick}>
-        <span class="slds-p-horizontal_medium">{tileObj.Label}</span>
+        <span class="slds-p-horizontal_medium">{tileLabel}</span>
 
         <template if:true={tileObj.Rating__c}>
             <span class="slds-p-horizontal_medium slds-float_right">{tileObj.Rating__c}</span>

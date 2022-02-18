@@ -1,7 +1,7 @@
 // eventHelper
 
 //import { PlayerChar } from "c/sR_JsModules";
-import { BASE_ATTS, placeholderIdGenerator } from "c/sr_jsModules";
+import { BASE_ATTS, placeholderIdGenerator, Enums } from "c/sr_jsModules";
 
 let randomNameIndex = 0;
 
@@ -22,7 +22,7 @@ function buildAdjus(cmp){
     let returnList = [];
 
     // metarace
-    if (!!cmp.templates.metaraceAdjustmentMap[cmp.selectedChar.MetaraceTemplate__c]) {
+    if (!!cmp.adjustmentTemplates.metarace[cmp.selectedChar.MetaraceTemplate__c]) {
         returnList = returnList.concat(cmp.templates.metaraceAdjustmentMap[cmp.selectedChar.MetaraceTemplate__c]);
     }
 
@@ -30,8 +30,8 @@ function buildAdjus(cmp){
     // check if magic type allows shaman, check for shaman, check for totem
     if (cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c]?.TraditionOptions__c?.includes("Shamanic") &&
         cmp.selectedChar.MagicalTradition__c == "Shamanic" &&
-        !!cmp.templates.totemAdjustmentMap[cmp.selectedChar.TotemId__c]) {
-            returnList = returnList.concat(cmp.templates.totemAdjustmentMap[cmp.selectedChar.TotemId__c]);
+        !!cmp.adjustmentTemplates.totems[cmp.selectedChar.TotemId__c]) {
+            returnList = returnList.concat(cmp.adjustmentTemplates.totems[cmp.selectedChar.TotemId__c]);
     }
     
     return returnList;
@@ -120,6 +120,8 @@ function calcNaturalBonusText(cmp, attObj, att, modifiers){
 }
 
 function buildBasicInfo(cmp){
+    //console.log('cmp.basicInfo');
+
     let basicInfo = {};
     // add metarace
     basicInfo.metarace = {
@@ -135,27 +137,34 @@ function buildBasicInfo(cmp){
     };
 
     // add skills
-    if (!cmp.selectedChar.SkillAssigns__r) {
-        cmp.selectedChar.SkillAssigns__r = [];
+    if (!cmp.SkillAssigns__r) {
+        cmp.SkillAssigns__r = [];
     }
-    let skillPoints = cmp.selectedChar.SkillAssigns__r.reduce(((previous, current) => previous + current.Rating__c), 0);
+    let skillPoints = cmp.SkillAssigns__r.reduce(((previous, current) => previous + current.Rating__c), 0);
     basicInfo.skills = {
         label: `${cmp.labels.skills} (${skillPoints})`,
         cost: COSTS_PER_POINT.skills * skillPoints
     };
-    cmp.SkillAssigns__r = [ ...cmp.selectedChar.SkillAssigns__r ];
+    //cmp.SkillAssigns__r = (!!cmp.selectedChar.SkillAssigns__r ? [ ...cmp.selectedChar.SkillAssigns__r ] : []);
 
     // magic
-    console.log('buildBasicInfo');
-    console.log(cmp.selectedChar.MagicianTypeId__c);
-    let magicBuildPoints = (cmp.selectedChar.MagicianTypeId__c ? cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c].BuildPoints__c : 0);
-    let magicTypeName = (cmp.selectedChar.MagicianTypeId__c ? cmp.templates.magicianTypeMap[cmp.selectedChar.MagicianTypeId__c].Label : "");
+    //console.log('cmp.basicInfo magic');
+
+    let magicBuildPoints = (cmp.selectedChar.MagicianTypeId__c ? cmp.collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c].BuildPoints__c : 0);
+    let magicTypeName = (cmp.selectedChar.MagicianTypeId__c ? cmp.collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c].Label : "");
     basicInfo.magic = {
         label: `${cmp.labels.magic} ${magicTypeName} (${magicBuildPoints})`,
         cost: magicBuildPoints
     };
+    //cmp.Spell_Assigns__r = (!!cmp.selectedChar.Spell_Assigns__r ? [ ...cmp.selectedChar.Spell_Assigns__r ] : []);
+
+    //console.log('basicInfo:');
+    //console.log(cmp.basicInfo);
 
     cmp.basicInfo = basicInfo;
+
+    //console.log('cmp.basicInfo:');
+    //console.log(cmp.basicInfo);
 
 }
 
@@ -174,7 +183,7 @@ let eventHelper = {
 
         //console.log('new char built:');
         //console.log(JSON.stringify(cmp.selectedChar));
-
+        eventHelper.resetObjectsBeingDeleted(cmp);
         eventHelper.rebuildAdjusAndBasicInfo(cmp);
         
     },
@@ -194,6 +203,8 @@ let eventHelper = {
     clearChar: (cmp) => {
         cmp.selectedChar = undefined;
         cmp.saveDisabled = true;
+
+        eventHelper.resetObjectsBeingDeleted(cmp);
     },
 
     changeValue: (cmp, field, value) => {
@@ -204,8 +215,6 @@ let eventHelper = {
         //console.log(JSON.stringify(cmp.selectedChar));
     },
 
-
-
     handlemetarace_and_atts: (cmp, payload) => {
         for (const [key, value] of Object.entries(payload)) {
             cmp.selectedChar[key] = (isNaN(value) ? value : parseInt(value));
@@ -214,35 +223,83 @@ let eventHelper = {
 
     },
 
-    handleskill_change: (cmp, payload) => {
-        // find if existing skill
-        let skillIndex = cmp.selectedChar.SkillAssigns__r.findIndex(assign => assign.Id == payload.skillId);
+    handleSpellChange: (cmp, payload) => {
+        console.log('handleSpellChange');
+        console.log(JSON.stringify(payload));
+        console.log(String(payload.crudType));
+    },
 
-        switch (payload.type) {
-            case "save":
+    handleSkillChange: (cmp, payload) => {
+        let skillObj = payload.updateObj;
+        let skillIndex = cmp.SkillAssigns__r?.findIndex(assign => assign.Id == skillObj.Id);
+
+        let skillTemplate = cmp.collectionContainers.skills.skillTemplates.dataObj[skillObj.SkillTemplateId__c];
+
+
+        switch (payload.crudType) {
+            case Enums.CrudTypes.Save:
+                skillObj.Name = skillTemplate.Label + (skillTemplate.Requires_Name__c ? " - " + skillObj.Name : "");
+
                 if (skillIndex === undefined || skillIndex === -1) {
-                    // add
-                    let newAssign = {
-                        SkillTemplateId__c: payload.templateId,
-                        Rating__c: payload.rating,
-                        Special_Skill_Name__c: payload.name,
-                        Id: placeholderIdGenerator.next().value
-                    };
-                    cmp.selectedChar.SkillAssigns__r.push(newAssign);
+                    skillObj.Id = placeholderIdGenerator.next().value;
+                    cmp.SkillAssigns__r.push(skillObj);
                 } else {
-                    // replace
-                    cmp.selectedChar.SkillAssigns__r[skillIndex].Rating__c = payload.rating;
-                    cmp.selectedChar.SkillAssigns__r[skillIndex].Special_Skill_Name__c = payload.name;
+                    Object.assign(cmp.SkillAssigns__r[skillIndex], skillObj);
                 }
-
-                break;
-            case "delete":
-                cmp.objectsBeingDeleted.skillAssigns.push(...cmp.selectedChar.SkillAssigns__r.splice(skillIndex, 1));
-                break;
+            break;
+            case Enums.CrudTypes.Delete:
+                cmp.objectsBeingDeleted.skillAssigns.push(...cmp.SkillAssigns__r.splice(skillIndex, 1));
+            break;
         }
 
-        cmp.SkillAssigns__r = [ ...cmp.selectedChar.SkillAssigns__r ];
+        cmp.SkillAssigns__r = JSON.parse(JSON.stringify(cmp.SkillAssigns__r));
     },
+
+    // handleskill_change2: (cmp, payload) => {
+    //     // find if existing skill
+    //     //let skillIndex = cmp.selectedChar.SkillAssigns__r.findIndex(assign => assign.Id == payload.skillId);
+    //     let skillIndex = cmp.SkillAssigns__r.findIndex(assign => assign.Id == payload.skillId);
+
+    //     switch (payload.type) {
+    //         case "save":
+    //             if (skillIndex === undefined || skillIndex === -1) {
+    //                 // add
+    //                 let newAssign = {
+    //                     SkillTemplateId__c: payload.templateId,
+    //                     Rating__c: payload.rating,
+    //                     Name: cmp.collectionContainers.skills.skillTemplates.dataObj[payload.templateId].Label + (payload.name ? " - " + payload.name : ""),
+    //                     Id: placeholderIdGenerator.next().value
+    //                 };
+    //                 //cmp.selectedChar.SkillAssigns__r.push(newAssign);
+    //                 cmp.SkillAssigns__r.push(newAssign);
+
+    //             } else {
+    //                 // replace
+    //                 // cmp.selectedChar.SkillAssigns__r[skillIndex].Rating__c = payload.rating;
+    //                 // cmp.selectedChar.SkillAssigns__r[skillIndex].Name =
+    //                 //     cmp.collectionContainers.skills.skillTemplates.dataObj[payload.templateId].Label + (payload.name ? " - " + payload.name : "");
+    //                 cmp.SkillAssigns__r[skillIndex].Rating__c = payload.rating;
+    //                 cmp.SkillAssigns__r[skillIndex].Name =
+    //                         cmp.collectionContainers.skills.skillTemplates.dataObj[payload.templateId].Label + (payload.name ? " - " + payload.name : "");
+    //                 //cmp.selectedChar.SkillAssigns__r[skillIndex].Special_Skill_Name__c = payload.name;
+    //             }
+
+    //             break;
+    //         case "delete":
+    //             // remove skill, and hold for deletion
+    //             //cmp.objectsBeingDeleted.skillAssigns.push(...cmp.selectedChar.SkillAssigns__r.splice(skillIndex, 1));
+    //             //console.log('deleting index ' + skillIndex + Array.isArray(cmp.SkillAssigns__r));
+    //             //console.log('pre ' + cmp.SkillAssigns__r.length);
+    //             //console.table(cmp.SkillAssigns__r);
+
+    //             cmp.objectsBeingDeleted.skillAssigns.push(...cmp.SkillAssigns__r.splice(skillIndex, 1));
+    //             //console.log('post ' + cmp.SkillAssigns__r.length);
+    //             //console.table(cmp.SkillAssigns__r);
+    //             break;
+    //     }
+
+    //     cmp.SkillAssigns__r = JSON.parse(JSON.stringify(cmp.SkillAssigns__r));
+    // },
 
     handlemagic_event: (cmp, detail) => {
         // cmp.selectedChar.MagicianTypeId__c = detail.MagicianTypeId__c;
@@ -250,10 +307,9 @@ let eventHelper = {
         // cmp.selectedChar.TotemId__c = detail.TotemId__c;   
         
         Object.assign(cmp.selectedChar, detail.characterData);
-        cmp.selectedChar = Object.assign({}, cmp.selectedChar);
 
-        console.log('handlemagic_event:');
-        console.log(JSON.stringify(cmp.selectedChar));
+        //console.log('handlemagic_event:');
+        //console.log(JSON.stringify(cmp.selectedChar));
         
     },
 
@@ -261,6 +317,14 @@ let eventHelper = {
         cmp.objectsBeingDeleted = {
             skillAssigns: []
         };
+    },
+
+    updateCharacter: (cmp, newChar) => {
+        Object.assign(cmp.selectedChar, newChar);
+
+        console.log('cmp.selectedChar:');
+        console.log(JSON.stringify(cmp.selectedChar));
+
     }
   
     // buildBasicInfo(cmp) {

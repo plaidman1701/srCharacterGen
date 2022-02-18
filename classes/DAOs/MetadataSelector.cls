@@ -126,6 +126,7 @@ public with sharing class MetadataSelector {
             Habits__c,
             Identification__c,
             Image__c,
+            List_Order__c,
             Notes__c,
             RunningMultiplier__c,
             Taxonomy__c,

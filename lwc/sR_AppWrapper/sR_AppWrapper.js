@@ -1,8 +1,6 @@
 import { LightningElement, track } from 'lwc';
 
-import getInitData from '@salesforce/apex/SR_AppWrapperCtrl.getInitData';
-
-import { BASE_ATTS } from "c/sr_jsModules";
+import { BASE_ATTS, Enums } from "c/sr_jsModules";
 
 import eventHelper from './helpers/eventHelper.js';
 import apexHelper from "./helpers/apexHelper.js";
@@ -43,6 +41,7 @@ export default class SR_AppWrapper extends LightningElement {
 
     @track selectedChar;
     @track SkillAssigns__r = [];
+    @track Spell_Assigns__r = [];
 
     basicInfo = {};
     templates;
@@ -60,6 +59,9 @@ export default class SR_AppWrapper extends LightningElement {
 
         return maxVals;
     }
+
+    collectionContainers = {};
+    adjustmentTemplates = {};
 
 
     connectedCallback() {
@@ -109,18 +111,18 @@ export default class SR_AppWrapper extends LightningElement {
     handleChildEvent(event) {
         event.stopPropagation();
 
-        console.log('handleChildEvent event:');
-        console.log(JSON.stringify(event));
+        //console.log('handleChildEvent event:');
+        //console.log(JSON.stringify(event));
 
         switch (event.type) {
             case "toggleSpinner":
                 this.showSpinner = !this.showSpinner;
                 break;
             case "metarace_and_atts":
-                eventHelper.handlemetarace_and_atts(this, event.detail);
+                //eventHelper.handlemetarace_and_atts(this, event.detail);
                 break;
             case "skill_change":
-                eventHelper.handleskill_change(this, event.detail);
+                //eventHelper.handleskill_change2(this, event.detail);
                 break;
             case "magic_event":
                 eventHelper.handlemagic_event(this, event.detail);
@@ -128,12 +130,36 @@ export default class SR_AppWrapper extends LightningElement {
 
         }
 
+        this.selectedChar = Object.assign({}, this.selectedChar);
+
         eventHelper.rebuildAdjusAndBasicInfo(this);
         this.saveDisabled = false;
     }
 
+    handleUpdateEvent(event) {
+        console.log('handleUpdateEvent');
+
+        let payload = event.detail
+
+        switch (payload.updateType) {
+            case Enums.Character:
+                console.log('Enums.Character event caught');
+
+                this.selectedChar = Object.assign({}, payload.updateObj);
+                break;
+            case Enums.AssignObjTypes.Skill:
+                eventHelper.handleSkillChange(this, payload);
+                break;
+            case Enums.AssignObjTypes.Spell:
+                eventHelper.handleSpellChange(this, payload);
+                break;
+
+                
+                //eventHelper.updateCharacter(this, payload.updateObj);
+        }
 
 
-
-
+        eventHelper.rebuildAdjusAndBasicInfo(this);
+        this.saveDisabled = false;
+    }
 }

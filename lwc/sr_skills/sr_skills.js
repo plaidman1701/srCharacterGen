@@ -1,63 +1,69 @@
 import { LightningElement, api, track } from 'lwc';
 import helper from "./helpers/helper.js";
-import { oneToSixCombobox, sendEvt } from "c/sr_jsModules";
+import { oneToSixCombobox, Enums } from "c/sr_jsModules";
 
 const LABELS = {
     chooseRating: "Choose Rating",
     save: "Save",
-    delete: "Delete"
+    delete: "Delete",
+    cancel: "Cancel"
 };
 
 export default class Sr_skills extends LightningElement {
     labels = LABELS;
 
-    // sortFields = ["Type__c", "Category__c", "Label"];
+    _skillTemplateCollectionContainer;
+    @api
+    get skillTemplateCollectionContainer() {
+        return this._skillTemplateCollectionContainer;
+    };
+    set skillTemplateCollectionContainer(value) {
+        this._skillTemplateCollectionContainer = value;
+        //console.log('skillTemplateCollectionContainer:');
+        //console.log(JSON.stringify());
 
-    @api skillTemplateMap;
 
-    _selectedSkills = [];
+        helper.buildSortedSkillListArray(this);
+    }
+    
+    _selectedSkills;
     @api
     get selectedSkills() {
         return this._selectedSkills;
     }
     set selectedSkills(value) {
-        this._selectedSkills = value;
-        //('got selectedSkills');
-        //console.log(JSON.stringify(this.selectedSkills));
+        this._selectedSkills = JSON.parse(JSON.stringify(value)); // clone
 
-
-        helper.buildMinimalSelectedSkillList(this);
         helper.buildSortedSkillListArray(this);
-
-        // refresh
-        this.selectedSkillObj;
     }
-    minimalSkillList = [];
 
-    orderedSkillTemplateList = [];
-    orderedSkillList = [];
-    skillSectionLabels = [ "Type__c", "Category__c" ];
+    //minimalSkillList = [];
+
+    //orderedSkillTemplateList = [];
+    //orderedSkillList = [];
+    //skillSectionLabels = [ "Type__c", "Category__c" ];
     
     get selectedSkillObj() {
-        return this.selectedSkills?.find(skill => skill.Id == this.selectedSkillId);
+        return this.selectedSkills?.find(skill => skill.Id == this.newSkillObj?.Id);
         //return this.selectedSkills?.find(skill => skill.SkillTemplateId__c == this.selectedSkillTemplateId);
     }
+
+    //selectedSkillTemplateId;
     get selectedTemplateObj(){
-        return this.skillTemplateMap[this.selectedSkillTemplateId];
+        return this.skillTemplateCollectionContainer?.dataObj[this.newSkillObj?.SkillTemplateId__c];
     }
 
-    skillTemplateList = [];
-    skillTemplateObj = {};
-    @track selectedSkillsObj = {};
+    //skillTemplateList = [];
+    //skillTemplateObj = {};
+    //@track selectedSkillsObj = {};
 
-    selectedSkillTemplateId;
-    selectedSkillId;
-    selectedSkillRating;
+    //selectedSkillId;
+    // selectedSkillRating;
 
-    skillName;
+    // skillName;
 
     get disableSave() {
-        return !this.selectedSkillRating || (this.selectedTemplateObj.Requires_Name__c && !this.skillName);
+        return !this.newSkillObj?.Rating__c || (this.selectedTemplateObj?.Requires_Name__c && !this.newSkillObj?.Name);
     }
 
     get disableDelete() {
@@ -68,74 +74,66 @@ export default class Sr_skills extends LightningElement {
         return oneToSixCombobox;
     }
 
-    get skillTemplateDescription() {
-        if (!this.selectedSkillTemplateId) {
-            return;
-        }
+    // get skillTemplateDescription() {
+    //     // if (!this.selectedSkillTemplateId) {
+    //     //     return;
+    //     // }
 
-        return this.skillTemplateMap[this.selectedSkillTemplateId].Description__c;
-    }
+    //     // return this.skillTemplateCollectionContainer?.dataObj[this.selectedSkillTemplateId].Description__c;
+    //     return this.selectedTemplateObj?.Description__c;
+    // }
 
     
-    connectedCallback() {
-        //console.log("Sr_skills");
-        //console.log(JSON.stringify(this.skillTemplateMap));
-        //console.log(typeof this.skillTemplateMap);
-
-        // let skillTemplateMap = JSON.parse(JSON.stringify(this.skillTemplateMap));
-
-        // this.skillTemplateList = Object.entries(skillTemplateMap).map(([ key, value ]) => value);
-        //this.skillTemplateList = Object.entries(this.skillTemplateMap);
-        console.log('Sr_skills');
-        sendEvt(this, "toggleSpinner");
-
-        helper.buildMinimalSkillTemplateList(this);
-        helper.buildSkillTemplateArray(this);
-
-        helper.buildMinimalSelectedSkillList(this);
-        helper.buildSortedSkillListArray(this);
-
-        console.log('orderedSkillTemplateList ' + Array.isArray(this.orderedSkillTemplateList));
-        console.table(this.orderedSkillTemplateList);
-        console.log('orderedSkillList ' + Array.isArray(this.orderedSkillList));
-        console.table(this.orderedSkillList);
-        sendEvt(this, "toggleSpinner");
-
-    }
-
     handleTemplateListClick(event) {
         event.stopPropagation();
 
-        this.selectedSkillId = undefined;
-        this.selectedSkillRating = undefined;
-        this.skillName = undefined;
+        // this.selectedSkillId = undefined;
+        // this.selectedSkillRating = undefined;
+        // this.skillName = undefined;
 
-        this.selectedSkillTemplateId = event.detail.Id;
+        this.newSkillObj = {};
+        this.newSkillObj.SkillTemplateId__c = event.detail.Id;
+
+        //this.selectedSkillTemplateId = event.detail.Id;
 
         // determine if multiskill
-        let skillTemplate = this.skillTemplateMap[this.selectedSkillTemplateId];
-        if (skillTemplate.Requires_Name__c) {
-            // new multiskill
+        //let skillTemplate = this.skillTemplateCollectionContainer.dataObj[this.selectedSkillTemplateId];
+        if (this.selectedTemplateObj.Requires_Name__c) {
+            // new multiskill,no skill Id to pick
             
         } else {
-            this.selectedSkillId = this.selectedSkills?.find(skill => skill.SkillTemplateId__c == this.selectedSkillTemplateId)?.Id;
+            // this.selectedSkillId = this.selectedSkills?.find(skill => skill.SkillTemplateId__c == this.selectedSkillTemplateId)?.Id;
+            this.newSkillObj.Id = this.selectedSkills?.find(skill => skill.SkillTemplateId__c == this.newSkillObj.SkillTemplateId__c)?.Id;
             //this.selectedSkillRating = this.selectedSkillObj?.Rating__c;  
         }     
         // check if skill selected
-        this.selectedSkillRating = this.selectedSkillObj?.Rating__c;                
+        // this.selectedSkillRating = this.selectedSkillObj?.Rating__c;   
+        this.newSkillObj.Rating__c = this.selectedSkillObj?.Rating__c; 
     }
 
     handleSkillListClick(event) {
         event.stopPropagation();
 
-        this.selectedSkillId = event.detail.Id;
-        // find template Id
-        // this.selectedSkillTemplateId = this.selectedSkills.filter(skill => skill.Id == this.selectedSkillId)[0].SkillTemplateId__c;
-        this.selectedSkillTemplateId = this.selectedSkillObj?.SkillTemplateId__c;
+        this.newSkillObj = {};
 
-        this.selectedSkillRating = this.selectedSkillObj?.Rating__c;   
-        this.skillName = this.selectedSkillObj?.Special_Skill_Name__c;
+        this.newSkillObj.Id = event.detail.Id;
+        // find template Id
+        //this.newSkillObj.SkillTemplateId__c = this.selectedSkills.find(skill => skill.Id == this.newSkillObj.Id).SkillTemplateId__c;
+        // this.selectedSkillTemplateId = this.selectedSkillObj?.SkillTemplateId__c;
+        // this.selectedSkillRating = this.selectedSkillObj?.Rating__c;   
+        // this.skillName = this.selectedSkillObj?.Special_Skill_Name__c;
+
+
+        Object.assign(this.newSkillObj, this.selectedSkillObj);
+
+        // check if multiskill and remove leading template name
+        if (this.selectedTemplateObj.Requires_Name__c) this.newSkillObj.Name = this.newSkillObj.Name.replace(this.selectedTemplateObj.Label + " - ", "");
+
+        console.log('this.newSkillObj after clone:');
+        console.log(JSON.stringify(this.newSkillObj));
     }
+
+    @track newSkillObj;
 
     handleRatingChange(event) {
         event.stopPropagation();
@@ -143,24 +141,37 @@ export default class Sr_skills extends LightningElement {
         //console.log(event.detail.value);
 
 
-        this.selectedSkillRating = parseInt(event.detail.value);
+        //this.selectedSkillRating = parseInt(event.detail.value);
+        this.newSkillObj.Rating__c = parseInt(event.detail.value);
     }
 
     handleButtonClick(event) {
         //console.log(event.target.dataset.name)
+        event.stopPropagation();
+
+        let crudType;
+
         switch (event.target.dataset.name) {
             case "save":
-                helper.saveSkill(this);
+                //helper.saveSkill(this);
+                crudType = Enums.CrudTypes.Save;
                 break;
             case "delete":
-                helper.deleteSkill(this);
+                //helper.deleteSkill(this);
+                crudType = Enums.CrudTypes.Delete;
                 break;
+            case "cancel":
+
+                break;
+
         }
 
-        this.selectedSkillTemplateId = undefined;
+        if (crudType) helper.updateSkillAssign(this, crudType);
+
+        this.newSkillObj = undefined;
     }
 
     handleSkillNameChange(event) {
-        this.skillName = event.detail.value;
-    }
-}
+        //this.skillName = event.detail.value;
+        this.newSkillObj.Name = event.detail.value;
+    }}

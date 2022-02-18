@@ -11,9 +11,7 @@
                 <template for:each={characterNames} for:item="characterName">
                     <div key={characterName.Id}>
                         <a data-character_id={characterName.Id} data-name="existingChar">{characterName.Name}</a>
-                    </div>
-                    
-    
+                    </div>    
                 </template>
             </div>
         </template>
@@ -30,7 +28,6 @@
 
             </div>
 
-
             <div class="slds-p-horizontal_large">
                 <lightning-tabset >
                     <lightning-tab label={labels.tabs.basic}>
@@ -38,30 +35,42 @@
                     </lightning-tab>
                     <lightning-tab label={labels.tabs.metaraceAtts}>
                         <c-sr_metarace-and-atts
+                        metarace-collection-container={collectionContainers.metarace.metaraces}
                         selected-char = {selectedChar}
-                        metarace-template-map={templates.metaraceTemplateMap}
-
                         att-max-values={attMaxValues}
                         adju-effects={adjuEffects}
-                        onmetarace_and_atts={handleChildEvent}
+                        onupdateevent={handleUpdateEvent}
                         ></c-sr_metarace-and-atts>
 
                     </lightning-tab>
                     <lightning-tab label={labels.tabs.skills}>
                         <c-sr_skills
-                        skill-template-map={templates.skillTemplateMap}
+                        skill-template-collection-container={collectionContainers.skills.skillTemplates}
                         selected-skills={SkillAssigns__r}
-                        onskill_change={handleChildEvent}
+                        onupdateevent={handleUpdateEvent}
                         ></c-sr_skills>
                     </lightning-tab>
+
                     <lightning-tab label={labels.tabs.magic}>
                         <c-sr_magic
+                        magic-collection-containers={collectionContainers.magic}
+                        selected-char={selectedChar}
+                        spell-assigns={Spell_Assigns__r}
+                        onmagic_event={handleChildEvent}
+                        onupdateevent={handleUpdateEvent}
+
+                        >
+
+
+                        </c-sr_magic>
+                        <!-- <c-sr_magic
                         magician-type-map={templates.magicianTypeMap}
                         selected-char={selectedChar}
                         totem-map={templates.totemMap}
                         spell-template-map={templates.spellTemplateMap}
+                        selected-spell-assigns={Spell_Assigns__r}
                         onmagic_event={handleChildEvent}
-                        ></c-sr_magic>
+                        ></c-sr_magic> -->
                     </lightning-tab>
                 </lightning-tabset>
             </div>

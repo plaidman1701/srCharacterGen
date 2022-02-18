@@ -1,25 +1,20 @@
-import { sendEvt, BASE_ATTS } from "c/sr_jsModules";
+import { sendEvt, BASE_ATTS, sendUpdateEvent, Enums } from "c/sr_jsModules";
 
 let helper = {
-    setInitValues: (cmp) => {
-        BASE_ATTS.forEach(att => {
-            cmp.selectedOptions[att] = cmp.selectedChar[att];
-        });
+    // setInitValues: (cmp) => {
+    //     BASE_ATTS.forEach(att => {
+    //         cmp.selectedChar[att] = cmp.selectedChar[att];
+    //     });
 
-        cmp.selectedOptions.MetaraceTemplate__c = cmp.selectedChar.MetaraceTemplate__c;
+    //     cmp.selectedChar.MetaraceTemplate__c = cmp.selectedChar.MetaraceTemplate__c;
 
-        // console.log('done setup');
-        // console.log(JSON.stringify(cmp.selectedOptions));
+    //     // console.log('done setup');
+    //     // console.log(JSON.stringify(cmp.selectedOptions));
 
-    },
-
-    applyMetarace: (cmp, metaraceId) => {
-
-        cmp.selectedOptions.MetaraceTemplate__c = metaraceId;
-    },
+    // },
 
     applyAttChange: (cmp, att, value) => {
-        cmp.selectedOptions[att] = value;
+        cmp.selectedChar[att] = (isNaN(value) ? value : parseInt(value));
     },
 
     // buildAdjus: (cmp) => {
@@ -65,15 +60,20 @@ let helper = {
     // },
 
     sendEvt: (cmp) => {
-        let payload = { ...cmp.selectedOptions };
+        //let payload = { ...cmp.selectedOptions };
         // console.log('sending payload:');
         // console.log(JSON.stringify(cmp.selectedOptions));
 
-        sendEvt(cmp, "metarace_and_atts", payload);
+        //sendEvt(cmp, "metarace_and_atts", payload);
+
+        console.log('sendUpdateEvent pre');
+        sendUpdateEvent(cmp, Enums.Character, cmp.selectedChar);
+        console.log('sendUpdateEvent post');
 
         // console.log('sent payload');
     }
 
 };
+
 
 export default helper;

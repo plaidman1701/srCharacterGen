@@ -11,7 +11,8 @@ export default class Sr_tileList extends LightningElement {
     }
     set sectionLabels(value) {
         this._sectionLabels = value;
-        if (this.orderedListToDisplay) this.displayObject = buildListForDisplay(this.orderedListToDisplay, ...this.sectionLabels);
+        helper.checkForListBuild(this);
+        //if (this.orderedListToDisplay) this.displayObject = buildListForDisplay(this.orderedListToDisplay, ...this.sectionLabels);
     }
 
     _orderedListToDisplay;
@@ -21,16 +22,14 @@ export default class Sr_tileList extends LightningElement {
     }
     set orderedListToDisplay(value) {
         this._orderedListToDisplay = value;
-        if (this.sectionLabels) this.displayObject = buildListForDisplay(this.orderedListToDisplay, ...this.sectionLabels);
+        helper.checkForListBuild(this);
+        //if (this.sectionLabels) this.displayObject = buildListForDisplay(this.orderedListToDisplay, ...this.sectionLabels);
     }
 
     @track displayObject = {};
-
-    /*
-        
+    /*      
     @api sectionLabels = [];
     @api orderedListToDisplay = [];
-
 
     get displayObject() {
         // console.log('getting displayObject');
@@ -41,12 +40,13 @@ export default class Sr_tileList extends LightningElement {
     }
 */
 
+
     @api tilesPerColumn = 3;
 
     connectedCallback() {
-        console.log('Sr_tileList');
+        //console.log('Sr_tileList');
         // console.log(JSON.stringify(this.orderedListToDisplay));
-        console.log(...this.sectionLabels)
+        //console.log(...this.sectionLabels)
         //console.log("displayObject:");
         //console.log(JSON.stringify(this.displayObject));
         
