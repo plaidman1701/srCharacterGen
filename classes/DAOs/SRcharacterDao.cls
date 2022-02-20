@@ -58,7 +58,7 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Special_Skill_Name__c'
         });
 
-        qFactory.subSelectQuery('Spell_Assigns__r')
+        qFactory.subSelectQuery('SpellAssigns__r')
         .selectFields(new List<String>{
             'Name',
             'Drain__c',
@@ -68,6 +68,7 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Rating__c',
             'SpecialName__c',
             'SpellTemplateId__c',
+            'SpellTemplateOption__c',
             'SpellTemplateVariantIndex__c'
         });
 
@@ -79,22 +80,43 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
         fflib_ISObjectUnitOfWork uow = new fflib_SObjectUnitOfWork(
             new List<Schema.SObjectType>{
                 SRcharacter__c.sObjectType,
-                SkillAssign__c.sObjectType
+                SkillAssign__c.sObjectType,
+                SpellAssign__c.sObjectType
             }
         );
 
+
+        System.debug('public Boolean saveChar:');
+        System.debug(JSON.serializePretty(charWrapper.character));
+        
         uow.registerUpsert(charWrapper.character);
-        uow.registerUpsert(charWrapper.skillAssigns);
+        // uow.registerUpsert(charWrapper.skillAssigns);
+        // uow.registerUpsert(charWrapper.spellAssigns);
 
         for (SkillAssign__c skill : charWrapper.skillAssigns) {
-            uow.registerRelationship(skill, SkillAssign__c.SRcharacter__c, charWrapper.character);
+            if (skill.Id == null) {
+                uow.registerNew(skill, SkillAssign__c.SRcharacter__c, charWrapper.character);
+            } else {
+                uow.registerUpsert(skill);
+            }
         }
-        uow.registerDeleted(charWrapper.skillAssignsToDelete);
+        for (SpellAssign__c spell : charWrapper.spellAssigns) {
+            if (spell.Id == null) {
+                uow.registerNew(spell, SpellAssign__c.SRcharacter__c, charWrapper.character);
+            } else {
+                uow.registerUpsert(spell);
+            }
+        }
 
+
+        uow.registerDeleted(charWrapper.objectsBeingDeleted);
+        // uow.registerDeleted(charWrapper.skillAssignsToDelete);
+        // uow.registerDeleted(charWrapper.spellAssignsToDelete);
 
         try {
             uow.commitWork();
         } catch (Exception ex) {
+            System.debug(ex.getMessage());
             return false;
         }
 

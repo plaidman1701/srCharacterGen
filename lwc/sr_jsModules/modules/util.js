@@ -1,9 +1,156 @@
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+import { collectionContainers } from "./dataTemplates.js";
+import { elementalCategories } from "./constants.js";
+
 export function sendEvt(cmp, evtName, payload) {
     const evt = new CustomEvent(evtName, { detail: payload });
     cmp.dispatchEvent(evt);
 
+};
+
+export function filterAndBuildSpellLists(cmp) {
+    let spellTemplateListToDisplay = [];
+    let spellAssigListToDisplay = [];
+    let filteredSpellTemplateIdSet = new Set();
+    let spellAssigListToDisplayIds = new Set();
+
+    let magicianTypeObj = collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c];
+    console.log('filterAndBuildSpellLists AllowsSpells__c: ' + magicianTypeObj?.AllowsSpells__c);
+    if (!magicianTypeObj?.AllowsSpells__c) {
+        // add logic here to reset
+        return {
+            spellTemplateListToDisplay,
+            spellAssigListToDisplay,
+            filteredSpellTemplateIdSet,
+            spellAssigListToDisplayIds
+        }
+    }
+
+    let selectedTotemObj = collectionContainers.magic.totems.dataObj[cmp.selectedChar.TotemId__c];
+
+    // adjust for types
+    let permittedCategories; // null if all allowed
+    let matterBasedRequired;
+    let elementalEffect;
+
+    if (magicianTypeObj.RequiresSpellBonus__c) {
+        // shamanic adept
+        permittedCategories = (selectedTotemObj?.Spell_Bonus__c?.split(";") || []);
+    } else if (magicianTypeObj.SpecialOptions__c) {
+        // elemental adept
+        permittedCategories = (elementalCategories[cmp.selectedChar.ElementalOption__c]?.category.split(";") || []);
+        if (permittedCategories.length) {
+            matterBasedRequired = elementalCategories[cmp.selectedChar.ElementalOption__c].matterBased;
+            elementalEffect = elementalCategories[cmp.selectedChar.ElementalOption__c].elementalEffect;
+        }
+    }
+
+    let spellTemplateCollectionContainer = collectionContainers.magic.spellTemplates;
+    console.log('filter spellTemplateCollectionContainer');
+    spellTemplateListToDisplay = spellTemplateCollectionContainer.dataList
+    .filter(spellTemplate => {
+        let filterPassed;
+        if (!permittedCategories) {
+            filterPassed = true;    
+        } else if (!permittedCategories.includes(spellTemplate.Category__c)) {
+            filterPassed = false;
+        } else if (matterBasedRequired) {
+            filterPassed = spellTemplate.MatterBased__c;
+        } else if (elementalEffect) {
+            filterPassed = elementalEffect === spellTemplate.ElementalEffect__c;
+        } else {
+            filterPassed = true;
+        }
+
+        if (filterPassed) filteredSpellTemplateIdSet.add(spellTemplate.Id);
+
+        return filterPassed;
+    });
+
+    console.log('filter spellAssigListToDisplay');
+
+
+    spellAssigListToDisplay = cmp.spellAssigns
+    .filter(spellAssign => filteredSpellTemplateIdSet.has(spellAssign.SpellTemplateId__c))
+    .map(spellAssign => {
+        let template = spellTemplateCollectionContainer.dataObj[spellAssign.SpellTemplateId__c];
+        
+        let returnObj = Object.assign({}, spellAssign);
+        returnObj.Category__c = template.Category__c;
+        returnObj.Subcategory__c = template.Subcategory__c;
+
+        spellAssigListToDisplayIds.add(spellAssign.Id);
+
+        return returnObj;
+    })
+    .sort(sortByListOrdering(spellTemplateCollectionContainer.orderingObj, ...spellTemplateCollectionContainer.sectionLabels)); 
+
+    return {
+        spellTemplateListToDisplay,
+        spellAssigListToDisplay,
+        filteredSpellTemplateIdSet,
+        spellAssigListToDisplayIds
+    }
+};
+
+export function filterAndBuildSpellTemplateList(selectedChar) {
+    let spellTemplateListToDisplay = [];
+    let filteredSpellTemplateIdSet = new Set();
+
+    let magicianTypeObj = collectionContainers.magic.magicianTypes.dataObj[selectedChar.MagicianTypeId__c];
+    console.log('filterAndBuildSpellTemplateList AllowsSpells__c: ' + magicianTypeObj?.AllowsSpells__c);
+    if (!magicianTypeObj?.AllowsSpells__c) {
+        // add logic here to reset
+        return {
+            spellTemplateListToDisplay,
+            filteredSpellTemplateIdSet
+        }
+    }
+
+    let selectedTotemObj = collectionContainers.magic.totems.dataObj[selectedChar.TotemId__c];
+
+    // adjust for types
+    let permittedCategories; // null if all allowed
+    let matterBasedRequired;
+    let elementalEffect;
+
+    if (magicianTypeObj.RequiresSpellBonus__c) {
+        // shamanic adept
+        permittedCategories = (selectedTotemObj?.Spell_Bonus__c?.split(";") || []);
+    } else if (magicianTypeObj.SpecialOptions__c) {
+        // elemental adept
+        permittedCategories = (elementalCategories[selectedChar.ElementalOption__c]?.category.split(";") || []);
+        if (permittedCategories.length) {
+            matterBasedRequired = elementalCategories[selectedChar.ElementalOption__c].matterBased;
+            elementalEffect = elementalCategories[selectedChar.ElementalOption__c].elementalEffect;
+        }
+    }
+
+    spellTemplateListToDisplay = collectionContainers.magic.spellTemplates.dataList
+    .filter(spellTemplate => {
+        let filterPassed;
+        if (!permittedCategories) {
+            filterPassed = true;    
+        } else if (!permittedCategories.includes(spellTemplate.Category__c)) {
+            filterPassed = false;
+        } else if (matterBasedRequired) {
+            filterPassed = spellTemplate.MatterBased__c;
+        } else if (elementalEffect) {
+            filterPassed = elementalEffect === spellTemplate.ElementalEffect__c;
+        } else {
+            filterPassed = true;
+        }
+
+        if (filterPassed) filteredSpellTemplateIdSet.add(spellTemplate.Id);
+
+        return filterPassed;
+    });
+
+    return {
+        spellTemplateListToDisplay,
+        filteredSpellTemplateIdSet
+    };
 };
 
 export const popToast = (cmp, {...toastParams}) => {

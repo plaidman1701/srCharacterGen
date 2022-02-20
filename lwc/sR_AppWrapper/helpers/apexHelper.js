@@ -2,8 +2,10 @@ import getInitData from '@salesforce/apex/SR_AppWrapperCtrl.getInitData';
 import saveCharacter from '@salesforce/apex/SR_AppWrapperCtrl.saveCharacter';
 import getCharacter from '@salesforce/apex/SR_AppWrapperCtrl.getCharacter';
 
-import { simpleToast, CollectionContainer } from "c/sr_jsModules";
-import eventHelper from './eventHelper';
+import { simpleToast, filterAndBuildSpellTemplateList, setCollectionContainers, filterAndBuildSpellLists } from "c/sr_jsModules";
+//import eventHelper from './eventHelper';
+import { eventHelper, processIncomingCharacterData} from "./helper.js";
+
 
 const skillSectionLabels = [ "Type__c", "Category__c" ];
 const skillOrdering = [
@@ -33,7 +35,16 @@ let randomizeArray = (arr) => {
     }
 };
 
-function stripPlaceholderIds(cmp) {
+function stripPlaceholderIds(objList) {
+    // console.log('stripPlaceholderIds enter');
+    // console.log(JSON.stringify(objList));
+
+    objList.forEach(element => {
+        if (element.Id.startsWith("placeholder")) delete element.Id;
+    });
+   // console.log('stripPlaceholderIds done');
+
+    /*
     // skills
     cmp.SkillAssigns__r.forEach(skill => {
         if (skill.Id.startsWith("placeholder")) delete skill.Id;
@@ -41,26 +52,26 @@ function stripPlaceholderIds(cmp) {
     cmp.objectsBeingDeleted.skillAssigns =
         cmp.objectsBeingDeleted.skillAssigns.filter(skill => !skill.Id.startsWith("placeholder"));
     
-
+    // spells
+    cmp.spellAssigns.forEach(spell => {
+        if (spell.Id.startsWith("placeholder")) delete spell.Id;
+    });
+    cmp.objectsBeingDeleted.spellAssigns =
+        cmp.objectsBeingDeleted.spellAssigns.filter(spell => !spell.Id.startsWith("placeholder"));
+*/
 }
 
-function processIncomingCharacterData(cmp) {
-    // set these lists individually, so they're reactive
-    cmp.SkillAssigns__r = cmp.selectedChar.SkillAssigns__r;
-    //cmp.SkillAssigns__r = JSON.parse(JSON.stringify(cmp.selectedChar.SkillAssigns__r));
 
-    eventHelper.rebuildAdjusAndBasicInfo(cmp);
-}
 
 let apexHelper = {
     getInitData: (cmp) => {
-        console.log('getting init data');
+        //console.log('getting init data');
 
         cmp.showSpinner = true;
         getInitData()
             .then(result => {
-                console.log('got init data');
-                console.log(JSON.stringify(result));
+                //console.log('got init data');
+                //console.log(JSON.stringify(result));
 
                 cmp.characterNames = result.characterNames;
 
@@ -69,17 +80,19 @@ let apexHelper = {
 
                 cmp.templates = result.templates; // arrives as a list of objects
 
-                cmp.collectionContainers.metarace = {};
-                cmp.collectionContainers.metarace.metaraces = new CollectionContainer(result.templates.metaraceTemplateMap, null, null);
+                setCollectionContainers(result.templates);
+
+                // cmp.collectionContainers.metarace = {};
+                // cmp.collectionContainers.metarace.metaraces = new CollectionContainer(result.templates.metaraceTemplateMap, null, null);
                 cmp.adjustmentTemplates.metarace = result.templates.metaraceAdjustmentMap;
 
-                cmp.collectionContainers.skills = {};
-                cmp.collectionContainers.skills.skillTemplates = new CollectionContainer(result.templates.skillTemplateMap, skillOrdering, skillSectionLabels);
+                // cmp.collectionContainers.skills = {};
+                // cmp.collectionContainers.skills.skillTemplates = new CollectionContainer(result.templates.skillTemplateMap, skillOrdering, skillSectionLabels);
 
-                cmp.collectionContainers.magic = {};
-                cmp.collectionContainers.magic.magicianTypes = new CollectionContainer(result.templates.magicianTypeMap, null, null);
-                cmp.collectionContainers.magic.totems = new CollectionContainer(result.templates.totemMap, null, null);
-                cmp.collectionContainers.magic.spellTemplates = new CollectionContainer(result.templates.spellTemplateMap, spellOrdering, spellSectionLabels);
+                // cmp.collectionContainers.magic = {};
+                // cmp.collectionContainers.magic.magicianTypes = new CollectionContainer(result.templates.magicianTypeMap, null, null);
+                // cmp.collectionContainers.magic.totems = new CollectionContainer(result.templates.totemMap, null, null);
+                // cmp.collectionContainers.magic.spellTemplates = new CollectionContainer(result.templates.spellTemplateMap, spellOrdering, spellSectionLabels);
                 cmp.adjustmentTemplates.totems = result.templates.totemAdjustmentMap;
 
 
@@ -94,19 +107,61 @@ let apexHelper = {
     },
 
     saveCharacter: (cmp) => {
+        console.log('saveCharacter');
         cmp.showSpinner = true;
 
-        stripPlaceholderIds(cmp);
+        // let objectsToUpsert = removeIllegalObjects(cmp);
+        // console.log('objectsToUpsert');
+        // console.log(JSON.stringify(objectsToUpsert));
+
+        let spellData = filterAndBuildSpellLists(cmp);
+
+        let spellAssignsToUpsert = spellData.spellAssigListToDisplay;
+        // any spell assign not being upserted must be deleted
+        cmp.spellAssigns.forEach(spell => {
+            if (!spellData.spellAssigListToDisplayIds.has(spell.Id)) {
+                cmp.objectsBeingDeleted.push(spell);
+            }
+        });
+
+        // console.log('spellAssignsToUpsert');
+        // console.log(JSON.stringify([ ...spellAssignsToUpsert, ...cmp.SkillAssigns__r ]));
+
+
+        let objectsBeingDeleted = cmp.objectsBeingDeleted.filter(obj => !obj.Id.startsWith("placeholder"));
+
+        stripPlaceholderIds([ ...spellAssignsToUpsert, ...cmp.SkillAssigns__r ]);
+
+        // delete cmp.selectedChar.SkillAssigns__r;
+        // delete cmp.selectedChar.spellAssigns;
+/*
         let charDataWrapper = {
             character: cmp.selectedChar,
             skillAssigns: cmp.SkillAssigns__r || [],
-            skillAssignsToDelete: cmp.objectsBeingDeleted?.skillAssigns || []
+            skillAssignsToDelete: cmp.objectsBeingDeleted?.skillAssigns || [],
+            spellAssigns: spellAssignsToUpsert || [],
+            spellAssignsToDelete: cmp.objectsBeingDeleted?.spellAssigns || []
         };
-        console.log('charDataWrapper:');
-        console.log(JSON.stringify(charDataWrapper));
+        */
+
+        let charDataWrapper = {
+            character: cmp.selectedChar,
+            skillAssigns: cmp.SkillAssigns__r || [],
+            spellAssigns: spellAssignsToUpsert || [],
+            objectsBeingDeleted: objectsBeingDeleted || []
+        };
+
+        
+        charDataWrapper = JSON.parse(JSON.stringify(charDataWrapper)); // this may not be req'd
+        delete charDataWrapper.character.SkillAssigns__r;
+        delete charDataWrapper.character.SpellAssigns__r;
+
+        // console.log('charDataWrapper');
+        // console.log(JSON.stringify(charDataWrapper));
+
         saveCharacter( {charDataWrapper} )
             .then(result => {
-                console.log('result');
+                console.log('saveCharacter result');
                 console.log(JSON.stringify(result));
                 if (result.isSuccess) {
                     cmp.characterNames = result.characterNames;
@@ -114,7 +169,7 @@ let apexHelper = {
                     cmp.selectedChar = result.character;
 
                     processIncomingCharacterData(cmp);
-                    // eventHelper.rebuildAdjusAndBasicInfo(cmp);
+                    eventHelper.rebuildAdjusAndBasicInfo(cmp);
 
 
                     cmp.saveDisabled = true;
@@ -128,10 +183,14 @@ let apexHelper = {
                 console.log(JSON.stringify(error));
             })
             .finally(() => {
+
+
                 cmp.showSpinner = false;
             });
 
         cmp.selectedChar = undefined; // result will have a clean load
+        processIncomingCharacterData(cmp);
+
     },
 
     getCharacter: (cmp, charId) => {
@@ -140,18 +199,11 @@ let apexHelper = {
 
         getCharacter( {charId} )
             .then(result => {
-                console.log('getCharacter result');
-                console.log(JSON.stringify(result));
                 cmp.selectedChar = result.character;
-                //cmp.selectedChar = JSON.parse(JSON.stringify(result.character));
 
                 processIncomingCharacterData(cmp);
+                eventHelper.rebuildAdjusAndBasicInfo(cmp);
 
-                // // set these lists individually, so they're reactive
-                // cmp.SkillAssigns__r = cmp.selectedChar.SkillAssigns__r;
-                // //cmp.SkillAssigns__r = JSON.parse(JSON.stringify(cmp.selectedChar.SkillAssigns__r));
-
-                // eventHelper.rebuildAdjusAndBasicInfo(cmp);
             })
             .catch(error => {
                 console.log('error');
@@ -164,4 +216,4 @@ let apexHelper = {
 
 };
 
-export default apexHelper;
+export { apexHelper };

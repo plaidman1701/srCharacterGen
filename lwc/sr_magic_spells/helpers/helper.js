@@ -1,4 +1,4 @@
-import { sendUpdateEvent, Enums, elementalCategories } from "c/sr_jsModules";
+import { sendUpdateEvent, Enums, sortByListOrdering, filterAndBuildSpellLists, filterAndBuildSpellTemplateList } from "c/sr_jsModules";
 
 
 const spellOrdering = [
@@ -9,9 +9,8 @@ const spellOrdering = [
     ["Manipulation", "Control Manipulations", "Telekinetic Manipulations", "Transformation Maniplulations"]      
 ];
 
+/*
 function filterAndBuildSpellTemplateList(cmp) {
-
-
     // adjust for types
     let permittedCategories; // null if all allowed
     let matterBasedRequired;
@@ -98,31 +97,91 @@ function filterAndBuildSpellTemplateList(cmp) {
     //console.log('cmp.spellTemplateListToDisplay:');
     //console.table(cmp.spellTemplateListToDisplay);
 }
+*/
 
 let helper = {
 
-    buildSpellListsToDisplay: (cmp) => {
-        if (!cmp.magicianTypeObj?.AllowsSpells__c || !cmp.spellTemplateCollectionContainer) {
-            cmp.spellTemplateListToDisplay = [];
+    // buildSpellListsToDisplay: (cmp) => {
+    //     if (!cmp.magicianTypeObj?.AllowsSpells__c || !cmp.spellTemplateCollectionContainer) {
+    //         cmp.spellTemplateListToDisplay = [];
+    //         return;
+    //     }
+
+    //     console.log('buildSpellListsToDisplay magicianTypeObj');
+    //     console.log(JSON.stringify(cmp.magicianTypeObj));
+
+    //     // cmp.selectedSpellTemplateId = undefined;
+    //     // cmp.selectedSpellAssignId = undefined;
+
+    //     cmp.newSpellAssign = undefined;
+        
+    //     filterAndBuildSpellTemplateList(cmp);
+    //     //filterAndBuildSpellAssignList(cmp);
+    // },
+
+    updateSpellAssign: (cmp, crudType) => {
+
+
+        sendUpdateEvent(cmp, Enums.AssignObjTypes.Spell, cmp.newSpellAssign, crudType);
+    },
+/*
+    getFilteredAndSortedSpellTemplates: (cmp) => {
+        if (!cmp.selectedChar) return;
+        cmp.newSpellAssign = {};
+
+        //{ cmp.spellTemplateListToDisplay, cmp.filteredSpellTemplateIdSet } = Object.assign({}, filterAndBuildSpellTemplateList(cmp.selectedChar));
+        let data = filterAndBuildSpellTemplateList(cmp.selectedChar);
+        //console.log('setting cmp.spellTemplateListToDisplay');
+        cmp.spellTemplateListToDisplay = data.spellTemplateListToDisplay;
+        cmp.filteredSpellTemplateIdSet = data.filteredSpellTemplateIdSet;
+
+        helper.getFilteredAndSortedSpellAssigns(cmp);
+
+        //console.log("cmp.filteredSpellTemplateIdSet: " + cmp.filteredSpellTemplateIdSet.size);
+
+        if (cmp.spellAssigns) {
+            console.log("filterAndBuildSpellLists:");
+            console.log(JSON.stringify(filterAndBuildSpellLists(cmp, cmp.spellAssigns)));
+            console.log("filterAndBuildSpellLists done");
+        }
+
+
+    },
+
+    getFilteredAndSortedSpellAssigns: (cmp) => {
+        if (!cmp.spellAssigns?.length || !cmp.spellTemplateListToDisplay || !cmp.filteredSpellTemplateIdSet?.size) {
+            cmp.filteredSpellAssignList = [];
             return;
         }
 
-        console.log('buildSpellListsToDisplay magicianTypeObj');
-        console.log(JSON.stringify(cmp.magicianTypeObj));
+        cmp.filteredSpellAssignList = cmp.spellAssigns
+        .filter(spellAssign => cmp.filteredSpellTemplateIdSet.has(spellAssign.SpellTemplateId__c))
+        .map(spellAssign => {
+            let template = cmp.spellTemplateCollectionContainer.dataObj[spellAssign.SpellTemplateId__c];
+            
+            let returnObj = Object.assign({}, spellAssign);
+            returnObj.Category__c = template.Category__c;
+            returnObj.Subcategory__c = template.Subcategory__c;
 
-        // cmp.selectedSpellTemplateId = undefined;
-        // cmp.selectedSpellAssignId = undefined;
-
-        cmp.newSpellAssign = undefined;
-        
-        filterAndBuildSpellTemplateList(cmp);
-        //filterAndBuildSpellAssignList(cmp);
+            return returnObj;
+        })
+        .sort(sortByListOrdering(cmp.spellTemplateCollectionContainer.orderingObj, ...cmp.spellTemplateCollectionContainer.sectionLabels));   
+        //console.log('setting getFilteredAndSortedSpellAssigns:');
+        //console.log("cmp.filteredSpellTemplateIdSet: " + cmp.filteredSpellTemplateIdSet.size);
+        //console.log('cmp.filteredSpellAssignList:');
+        //console.log(JSON.stringify(cmp.filteredSpellAssignList));     
     },
+*/
+    getFilteredSpellTemplatesAndAssigns: (cmp) => {
 
-    updateSpellAssign: (cmp, crudType) => {
-        sendUpdateEvent(cmp, Enums.AssignObjTypes.Spell, cmp.newSpellAssign, crudType);
+        if (cmp.selectedChar && cmp.spellAssigns) {
+            let listData = filterAndBuildSpellLists(cmp);
+            cmp.spellTemplateListToDisplay = listData.spellTemplateListToDisplay;
+            cmp.filteredSpellAssignList = listData.spellAssigListToDisplay;
+        }
+
+
     }
-
 };
 
 export default helper;

@@ -4,24 +4,29 @@
             <lightning-tab label={labels.tabs.typeAndTradition}>
                 <c-sr_magic_type-and-tradition
                 selected-char={selectedChar}
-                magic-collection-containers={magicCollectionContainers}
                 onupdateevent={handleUpdateEvent}
                 >
                 </c-sr_magic_type-and-tradition>
 
             </lightning-tab>
+            
+            <lightning-tab label={labels.tabs.spells}>
+                <c-sr_magic_spells
+                selected-char={selectedChar}
+                spell-assigns={spellAssigns}
+                onupdateevent={handleUpdateEvent}>
+                </c-sr_magic_spells>
 
-                <lightning-tab label={labels.tabs.spells}>
+            </lightning-tab>
+
+                <!-- <lightning-tab label={labels.tabs.spells}>
                     <c-sr_magic_spells
                     selected-char={selectedChar}
-                    magic-collection-containers={magicCollectionContainers}
                     spell-assigns={spellAssigns}
-                    onupdateevent={handleUpdateEvent}
-                    >
-
+                    onupdateevent={handleUpdateEvent}>
                     </c-sr_magic_spells>
 
-                </lightning-tab>
+                </lightning-tab> -->
 
 
 

@@ -1,13 +1,16 @@
 // eventHelper
 
 //import { PlayerChar } from "c/sR_JsModules";
-import { BASE_ATTS, placeholderIdGenerator, Enums } from "c/sr_jsModules";
+import { BASE_ATTS, placeholderIdGenerator, Enums, collectionContainers, filterAndBuildSpellLists } from "c/sr_jsModules";
+
+import { processIncomingCharacterData } from "./helper.js";
 
 let randomNameIndex = 0;
 
 const COSTS_PER_POINT = {
     "attributes": 2,
-    "skills": 1
+    "skills": 1,
+    "force": 0.5
 };
 
 function getWorkingAttValue(calcdAtts, att){
@@ -23,7 +26,7 @@ function buildAdjus(cmp){
 
     // metarace
     if (!!cmp.adjustmentTemplates.metarace[cmp.selectedChar.MetaraceTemplate__c]) {
-        returnList = returnList.concat(cmp.templates.metaraceAdjustmentMap[cmp.selectedChar.MetaraceTemplate__c]);
+        returnList = returnList.concat(cmp.adjustmentTemplates.metarace[cmp.selectedChar.MetaraceTemplate__c]);
     }
 
     // totem
@@ -119,6 +122,27 @@ function calcNaturalBonusText(cmp, attObj, att, modifiers){
 
 }
 
+function calculateForcePoints(cmp) {
+    if (!cmp.selectedChar?.MagicianTypeId__c) return 0;
+
+    // let magTypeObj = collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c];
+    // let freeForcrPts = parseInt(magTypeObj.ForcePoints__c);
+
+    let spellList = filterAndBuildSpellLists(cmp).spellAssigListToDisplay;
+    console.log('spellList: ');
+    console.log(JSON.stringify(spellList));
+    let spellPoints = spellList.reduce((previous, current) => previous + current.Rating__c, 0);
+
+
+    // let pointCost = spellPoints - freeForcrPts;
+    // if (pointCost < 0) pointCost = 0;
+
+    // console.log('freeForcrPts: ' + freeForcrPts);
+    // console.log('spellPoints: ' + spellPoints);
+
+    return spellPoints;
+}
+
 function buildBasicInfo(cmp){
     //console.log('cmp.basicInfo');
 
@@ -148,15 +172,25 @@ function buildBasicInfo(cmp){
     //cmp.SkillAssigns__r = (!!cmp.selectedChar.SkillAssigns__r ? [ ...cmp.selectedChar.SkillAssigns__r ] : []);
 
     // magic
-    //console.log('cmp.basicInfo magic');
-
-    let magicBuildPoints = (cmp.selectedChar.MagicianTypeId__c ? cmp.collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c].BuildPoints__c : 0);
-    let magicTypeName = (cmp.selectedChar.MagicianTypeId__c ? cmp.collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c].Label : "");
+    let magTypeObj = collectionContainers.magic.magicianTypes.dataObj[cmp.selectedChar.MagicianTypeId__c];
+    let magicBuildPoints = magTypeObj?.BuildPoints__c || 0;
+    let magicTypeName = magTypeObj?.Label || "";
     basicInfo.magic = {
         label: `${cmp.labels.magic} ${magicTypeName} (${magicBuildPoints})`,
         cost: magicBuildPoints
     };
-    //cmp.Spell_Assigns__r = (!!cmp.selectedChar.Spell_Assigns__r ? [ ...cmp.selectedChar.Spell_Assigns__r ] : []);
+
+    // force
+    let forcePoints = calculateForcePoints(cmp);
+    let freePoints = magTypeObj?.ForcePoints__c || 0;
+    basicInfo.forcePoints = {
+        label: `${cmp.labels.forcePoints} (${forcePoints}, ${freePoints} free)`,
+        cost: COSTS_PER_POINT.force * (forcePoints - freePoints > 0 ? forcePoints - freePoints : 0)
+    };
+
+
+
+    //cmp.spellAssigns = (!!cmp.selectedChar.spellAssigns ? [ ...cmp.selectedChar.spellAssigns ] : []);
 
     //console.log('basicInfo:');
     //console.log(cmp.basicInfo);
@@ -183,9 +217,12 @@ let eventHelper = {
 
         //console.log('new char built:');
         //console.log(JSON.stringify(cmp.selectedChar));
-        eventHelper.resetObjectsBeingDeleted(cmp);
+
+        processIncomingCharacterData(cmp);
+
         eventHelper.rebuildAdjusAndBasicInfo(cmp);
-        
+        eventHelper.resetObjectsBeingDeleted(cmp);
+
     },
 
     randomizeName: (cmp) => {
@@ -224,20 +261,61 @@ let eventHelper = {
     },
 
     handleSpellChange: (cmp, payload) => {
-        console.log('handleSpellChange');
-        console.log(JSON.stringify(payload));
-        console.log(String(payload.crudType));
+        //console.log('handleSpellChange');
+        //console.log(JSON.stringify(payload));
+        //console.log(String(payload.crudType));
+
+        let spellAssignObj = payload.updateObj;
+        let spellAssignIndex = cmp.spellAssigns?.findIndex(assign => assign.Id == spellAssignObj.Id);
+        //console.log('spellAssignIndex: ' + spellAssignIndex);
+
+        switch (payload.crudType) {
+            case Enums.CrudTypes.Save:
+                let spellTemplate = collectionContainers.magic.spellTemplates.dataObj[spellAssignObj.SpellTemplateId__c];
+
+                // check for parenthesis in template name and rebuild name before adding
+                let templateInnerLabelText = spellTemplate.Label.match(/\(([^)]+)\)/)?.at(0);
+                // let appendName = ((spellAssignObj.SpellTemplateOption__c ? spellAssignObj.SpellTemplateOption__c : "") + 
+                // (spellAssignObj.SpellTemplateVariantIndex__c? " " + spellTemplate.Variants__c?.split(";").at(spellAssignObj.SpellTemplateVariantIndex__c) : "")).trim();
+
+                // add option
+                spellAssignObj.Name =
+                    (spellTemplate.Label.replace(templateInnerLabelText, spellAssignObj.SpellTemplateOption__c)).trim();
+                // add variant
+                let variant = spellTemplate.Variants__c?.split(";").at(spellAssignObj.SpellTemplateVariantIndex__c);
+                if (variant) {
+                    spellAssignObj.Name += " " + variant;
+                }
+
+                if (spellAssignIndex === undefined || spellAssignIndex === -1) {
+                    spellAssignObj.Id = placeholderIdGenerator.next().value;
+                    cmp.spellAssigns.push(spellAssignObj);
+                } else {
+                    //Object.assign(cmp.spellAssigns[spellAssignIndex], spellAssignObj);
+                    cmp.spellAssigns[spellAssignIndex] = spellAssignObj;
+                }
+            break;
+            case Enums.CrudTypes.Delete:
+                cmp.objectsBeingDeleted.push(...cmp.spellAssigns.splice(spellAssignIndex, 1));
+                //cmp.objectsBeingDeleted.spellAssigns.push(...cmp.spellAssigns.splice(spellAssignIndex, 1));
+            break;
+        }
+
+        cmp.spellAssigns = JSON.parse(JSON.stringify(cmp.spellAssigns));
     },
 
     handleSkillChange: (cmp, payload) => {
         let skillObj = payload.updateObj;
         let skillIndex = cmp.SkillAssigns__r?.findIndex(assign => assign.Id == skillObj.Id);
 
-        let skillTemplate = cmp.collectionContainers.skills.skillTemplates.dataObj[skillObj.SkillTemplateId__c];
 
 
         switch (payload.crudType) {
             case Enums.CrudTypes.Save:
+
+                //let skillTemplate = cmp.collectionContainers.skills.skillTemplates.dataObj[skillObj.SkillTemplateId__c];
+                let skillTemplate = collectionContainers.skills.skillTemplates.dataObj[skillObj.SkillTemplateId__c];
+
                 skillObj.Name = skillTemplate.Label + (skillTemplate.Requires_Name__c ? " - " + skillObj.Name : "");
 
                 if (skillIndex === undefined || skillIndex === -1) {
@@ -248,7 +326,11 @@ let eventHelper = {
                 }
             break;
             case Enums.CrudTypes.Delete:
-                cmp.objectsBeingDeleted.skillAssigns.push(...cmp.SkillAssigns__r.splice(skillIndex, 1));
+                
+
+                cmp.objectsBeingDeleted.push(...cmp.SkillAssigns__r.splice(skillIndex, 1));
+
+                //cmp.objectsBeingDeleted.skillAssigns.push(...cmp.SkillAssigns__r.splice(skillIndex, 1));
             break;
         }
 
@@ -301,29 +383,31 @@ let eventHelper = {
     //     cmp.SkillAssigns__r = JSON.parse(JSON.stringify(cmp.SkillAssigns__r));
     // },
 
-    handlemagic_event: (cmp, detail) => {
-        // cmp.selectedChar.MagicianTypeId__c = detail.MagicianTypeId__c;
-        // cmp.selectedChar.MagicalTradition__c = detail.MagicalTradition__c;
-        // cmp.selectedChar.TotemId__c = detail.TotemId__c;   
+    // handlemagic_event: (cmp, detail) => {
+    //     // cmp.selectedChar.MagicianTypeId__c = detail.MagicianTypeId__c;
+    //     // cmp.selectedChar.MagicalTradition__c = detail.MagicalTradition__c;
+    //     // cmp.selectedChar.TotemId__c = detail.TotemId__c;   
         
-        Object.assign(cmp.selectedChar, detail.characterData);
+    //     Object.assign(cmp.selectedChar, detail.characterData);
 
-        //console.log('handlemagic_event:');
-        //console.log(JSON.stringify(cmp.selectedChar));
+    //     //console.log('handlemagic_event:');
+    //     //console.log(JSON.stringify(cmp.selectedChar));
         
-    },
+    // },
 
     resetObjectsBeingDeleted: (cmp) => {
-        cmp.objectsBeingDeleted = {
-            skillAssigns: []
-        };
+        cmp.objectsBeingDeleted = [];
+        // cmp.objectsBeingDeleted = {
+        //     skillAssigns: [],
+        //     spellAssigns: []
+        // };
     },
 
     updateCharacter: (cmp, newChar) => {
         Object.assign(cmp.selectedChar, newChar);
 
-        console.log('cmp.selectedChar:');
-        console.log(JSON.stringify(cmp.selectedChar));
+        //console.log('cmp.selectedChar:');
+        //console.log(JSON.stringify(cmp.selectedChar));
 
     }
   
@@ -417,4 +501,4 @@ let eventHelper = {
 
 };
 
-export default eventHelper;
+export { eventHelper };

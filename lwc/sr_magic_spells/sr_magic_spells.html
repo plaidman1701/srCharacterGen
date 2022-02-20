@@ -2,13 +2,18 @@
     <c-sr_tile-list-wrapper
     section-labels={spellTemplateCollectionContainer.sectionLabels}
     left-side-list={spellTemplateListToDisplay}
+    right-side-list={filteredSpellAssignList}
     onleftclick={handleSpellTemplateClick}
+    onrightclick={handleSpellAssignClick}
     >
     <template if:true={selectedSpellTemplateObj}>
         <span slot="selectedContent">
             <div onchange={handleSpellDetailChange}>
                 {selectedSpellTemplateObj.Label}<br/>
+
                 {selectedSpellTemplateObj.Description__c}<br/>
+                {selectedSpellTemplateObj.DamageLevel__c}<br />
+
                 {selectedDrain}<br />
                 {selectedDuration}<br />
 
@@ -27,19 +32,17 @@
                     value={newSpellAssign.Rating__c}></lightning-combobox>
 
                 <template if:true={selectedSpellTemplateObj.RequiresName__c}>
-
                     <lightning-input
-                    value={newSpellAssign.Name}
-                    data-attribute-name="Name"                    
+                    value={newSpellAssign.SpellTemplateOption__c}
+                    data-attribute-name="SpellTemplateOption__c"                    
                     type="text" label="Enter some text"></lightning-input>
-
                 </template>
 
                 <template if:true={selectedSpellTemplateObj.Options__c}>
                     <lightning-combobox
-                        data-attribute-name="Name"               
+                        data-attribute-name="SpellTemplateOption__c"               
                         options={spellOptionList}
-                        value={newSpellAssign.Name}></lightning-combobox>
+                        value={newSpellAssign.SpellTemplateOption__c}></lightning-combobox>
                 </template>
 
                 <div onclick={handleButtonClick}>

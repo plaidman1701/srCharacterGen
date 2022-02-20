@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 
 import helper from './helpers/helper.js';
-import { oneToSixCombobox, placeholderIdGenerator } from "c/sr_jsModules";
+import { oneToSixCombobox, placeholderIdGenerator, collectionContainers } from "c/sr_jsModules";
 
 const LABELS = {
     selectMetarace: "Select Metarace",
@@ -19,7 +19,11 @@ const LABELS = {
 
 
 export default class Sr_metaraceAndAtts extends LightningElement {
-    @api metaraceCollectionContainer;
+    //@api metaraceCollectionContainer;
+    get metaraceCollectionContainer() {
+        console.log('getting metaraceCollectionContainer');
+        return collectionContainers.metarace.metaraces;
+    }
    
     _selectedChar = {};
     @api

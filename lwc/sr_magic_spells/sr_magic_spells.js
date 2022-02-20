@@ -1,5 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-import { oneToSixCombobox, Enums } from "c/sr_jsModules";
+import { oneToSixCombobox, Enums, collectionContainers, filterAndBuildSpellTemplateList } from "c/sr_jsModules";
 
 import helper from "./helpers/helper.js";
 
@@ -20,40 +20,59 @@ export default class Sr_magic_spells extends LightningElement {
     }
     set selectedChar(value) {
         this._selectedChar = value; 
-
-        console.log('selectedChar');
-        console.log(JSON.stringify(this.selectedChar));
-
-
-        helper.buildSpellListsToDisplay(this);
-
-        console.log('this.spellTemplateListToDisplay');
-        console.table(this.spellTemplateListToDisplay);
+        //helper.getFilteredAndSortedSpellTemplates(this);
+        helper.getFilteredSpellTemplatesAndAssigns(this);
     }
+
+    
 
     // @api selectedChar;
-    @api magicCollectionContainers;
-    @api spellAssigns;
+    // @api magicCollectionContainers;
+    @track _spellAssigns;
+    @api
+    get spellAssigns() {
+        return this._spellAssigns;
+    }
+    set spellAssigns(value) {
+        //console.log('receiving new spellAssigns');
+        this._spellAssigns = JSON.parse(JSON.stringify(value));
+        //console.log('presort:');
+        //console.log(JSON.stringify(this.spellAssigns));
+        //helper.getFilteredAndSortedSpellAssigns(this);
+        helper.getFilteredSpellTemplatesAndAssigns(this);
+
+        //console.log('postsort:');
+        //console.log(JSON.stringify(this.spellAssigns));
+    }
 
     get spellTemplateCollectionContainer() {
-        return this.magicCollectionContainers?.spellTemplates;
-    }
-    get totemCollectionContainer() {
-        return this.magicCollectionContainers?.totems;
-    }
-    get magicianTypeCollectionContainer() {
-        return this.magicCollectionContainers?.magicianTypes;
+        return collectionContainers.magic.spellTemplates;
     }
 
-    get magicianTypeObj() {
-        return this.magicianTypeCollectionContainer?.dataObj[this.selectedChar?.MagicianTypeId__c];
+    connectedCallback() {
+        helper.getFilteredSpellTemplatesAndAssigns(this);
+
+        //helper.getFilteredAndSortedSpellTemplates(this);
+        //helper.getFilteredAndSortedSpellAssigns(this);
     }
 
-    get selectedTotemObj() {
-        return this.totemCollectionContainer?.dataObj[this.selectedChar?.TotemId__c];
-    }
 
-    @track spellTemplateListToDisplay;
+    // get totemCollectionContainer() {
+    //     return this.magicCollectionContainers?.totems;
+    // }
+    // get magicianTypeCollectionContainer() {
+    //     return this.magicCollectionContainers?.magicianTypes;
+    // }
+
+    // get magicianTypeObj() {
+    //     return this.magicianTypeCollectionContainer?.dataObj[this.selectedChar?.MagicianTypeId__c];
+    // }
+
+    // get selectedTotemObj() {
+    //     return this.totemCollectionContainer?.dataObj[this.selectedChar?.TotemId__c];
+    // }
+
+    @track spellTemplateListToDisplay = [];
 
     @track newSpellAssign;
 
@@ -61,6 +80,7 @@ export default class Sr_magic_spells extends LightningElement {
     // selectedSpellAssignId;
 
     filteredSpellTemplateIdSet;
+    @track filteredSpellAssignList = [];
 
     get selectedSpellTemplateObj() {
         return this.spellTemplateCollectionContainer?.dataObj[this.newSpellAssign?.SpellTemplateId__c];
@@ -93,15 +113,15 @@ export default class Sr_magic_spells extends LightningElement {
         });
     }
 
-    connectedCallback() {
-        helper.buildSpellListsToDisplay(this);
-    }
 
     handleSpellTemplateClick(event) {
         event.stopPropagation();
 
         this.newSpellAssign = {};
         this.newSpellAssign.SpellTemplateId__c = event.detail.Id;
+
+        console.log('this.selectedSpellTemplateObj:')
+        console.log(JSON.stringify(this.selectedSpellTemplateObj));
 
         // this.selectedSpellAssignId = undefined;
         // this.selectedSpellTemplateId = event.detail.Id;
@@ -121,8 +141,8 @@ export default class Sr_magic_spells extends LightningElement {
 
         Object.assign(this.newSpellAssign, this.selectedSpellAssignObj);
 
-        // check for parenthesis in name
-        this.newSpellAssign.Name = this.newSpellAssign.Name.match(/\(([^)]+)\)/)[1] || this.newSpellAssign.Name;
+        // check for parenthesis in name, will re-parenethise on save
+        //this.newSpellAssign.Name = this.newSpellAssign.Name?.match(/\(([^)]+)\)/)?.at(1);
     }
 
     // @track _selectedSpellAssignObj;
@@ -152,7 +172,8 @@ export default class Sr_magic_spells extends LightningElement {
     // need a rating to save, and if requirs name or options, also a name
     get disableSave() {
         return !this.newSpellAssign?.Rating__c ||
-            ((this.selectedSpellTemplateObj?.RequiresName__c || this.selectedSpellTemplateObj?.Options__c) && !this.newSpellAssign?.Name);
+            ((this.selectedSpellTemplateObj?.RequiresName__c || this.selectedSpellTemplateObj?.Options__c) && !this.newSpellAssign?.SpellTemplateOption__c) ||
+            (this.selectedSpellTemplateObj?.Variants__c && (this.newSpellAssign?.SpellTemplateVariantIndex__c == undefined));
     }
 
     get disableDelete() {

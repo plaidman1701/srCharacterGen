@@ -17,14 +17,27 @@
         </template>
     
         <template if:true={selectedChar}>
-            <div onclick={handleClick} onchange={handleChange} class="slds-clearfix">
-                <lightning-button data-name="ClearChar" label={labels.buttons.cancelAll}></lightning-button>
-                <!-- <lightning-button data-name="SaveChar" label={labels.buttons.save} disabled={saveDisabled}></lightning-button> -->
-                <button class="slds-button slds-button_neutral" data-name="SaveChar" disabled={saveDisabled}>{labels.buttons.save}</button>
-                <lightning-input  data-name="Name" value={selectedChar.Name}></lightning-input>
-                <lightning-button data-name="RandomName" label={labels.buttons.random}></lightning-button>
-                <lightning-input  data-name="Real_Name__c" value={selectedChar.Real_Name__c}></lightning-input>
-                <lightning-input  data-name="Short_Notes__c" value={selectedChar.Short_Notes__c}></lightning-input>
+
+
+            <div onclick={handleClick} onchange={handleChange} class="slds-grid slds-wrap slds-clearfix">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-button data-name="ClearChar" label={labels.buttons.cancelAll}></lightning-button>
+                    <!-- <lightning-button data-name="SaveChar" label={labels.buttons.save} disabled={saveDisabled}></lightning-button> -->
+                    <button class="slds-button slds-button_neutral" data-name="SaveChar" disabled={saveDisabled}>{labels.buttons.save}</button>
+                </div>
+                <div class="slds-col ">
+                    <lightning-input  data-name="Name" value={selectedChar.Name} label={labels.handle}></lightning-input>
+                    <lightning-button data-name="RandomName" label={labels.buttons.random} class="slds-float_right"></lightning-button>
+                </div>
+                <div class="slds-col ">
+                    <lightning-input  data-name="Real_Name__c" label={labels.realName} value={selectedChar.Real_Name__c}></lightning-input>
+
+                </div>
+                <div class="slds-col ">
+                    <lightning-input  data-name="Short_Notes__c" label={labels.notes} value={selectedChar.Short_Notes__c}></lightning-input>
+
+                </div>
+
 
             </div>
 
@@ -35,17 +48,17 @@
                     </lightning-tab>
                     <lightning-tab label={labels.tabs.metaraceAtts}>
                         <c-sr_metarace-and-atts
-                        metarace-collection-container={collectionContainers.metarace.metaraces}
                         selected-char = {selectedChar}
                         att-max-values={attMaxValues}
                         adju-effects={adjuEffects}
                         onupdateevent={handleUpdateEvent}
                         ></c-sr_metarace-and-atts>
+                        <!-- metarace-collection-container={collectionContainers.metarace.metaraces} -->
+
 
                     </lightning-tab>
                     <lightning-tab label={labels.tabs.skills}>
                         <c-sr_skills
-                        skill-template-collection-container={collectionContainers.skills.skillTemplates}
                         selected-skills={SkillAssigns__r}
                         onupdateevent={handleUpdateEvent}
                         ></c-sr_skills>
@@ -53,25 +66,31 @@
 
                     <lightning-tab label={labels.tabs.magic}>
                         <c-sr_magic
+                        selected-char={selectedChar}
+                        spell-assigns={spellAssigns}
+                        onupdateevent={handleUpdateEvent}
+
+                        >
+
+                        </c-sr_magic>
+                    </lightning-tab>
+
+
+                    <!-- skill-template-collection-container={collectionContainers.skills.skillTemplates} -->
+
+                    <!-- <lightning-tab label={labels.tabs.magic}>
+                        <c-sr_magic
                         magic-collection-containers={collectionContainers.magic}
                         selected-char={selectedChar}
-                        spell-assigns={Spell_Assigns__r}
+                        spell-assigns={SpellAssigns__r}
                         onmagic_event={handleChildEvent}
                         onupdateevent={handleUpdateEvent}
 
                         >
 
-
                         </c-sr_magic>
-                        <!-- <c-sr_magic
-                        magician-type-map={templates.magicianTypeMap}
-                        selected-char={selectedChar}
-                        totem-map={templates.totemMap}
-                        spell-template-map={templates.spellTemplateMap}
-                        selected-spell-assigns={Spell_Assigns__r}
-                        onmagic_event={handleChildEvent}
-                        ></c-sr_magic> -->
-                    </lightning-tab>
+
+                    </lightning-tab> -->
                 </lightning-tabset>
             </div>
         </template>

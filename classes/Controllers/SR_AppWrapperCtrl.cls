@@ -18,8 +18,11 @@ public with sharing class SR_AppWrapperCtrl {
         reponse.templates = MetadataSelector.getAllTemplates();
         reponse.characterNames = charDao.getCharacterNames();
         List<String> sampleHandles = new List<String>();
+        System.debug('Heap limit: ' + Limits.getLimitHeapSize());
+
         for (SampleHandle__mdt handleMdt : MetadataSelector.getSampleHandles()) {
             sampleHandles.add(handleMdt.Label);
+            System.debug('Heap size: ' + Limits.getHeapSize());
         }
         reponse.sampleHandles = sampleHandles;
 
@@ -74,8 +77,15 @@ public with sharing class SR_AppWrapperCtrl {
 
         @AuraEnabled
         public List<SkillAssign__c> skillAssigns {get; set;}
+        // @AuraEnabled
+        // public List<SkillAssign__c> skillAssignsToDelete {get; set;}
         @AuraEnabled
-        public List<SkillAssign__c> skillAssignsToDelete {get; set;}
+        public List<SpellAssign__c> spellAssigns {get; set;}
+        // @AuraEnabled
+        // public List<SpellAssign__c> spellAssignsToDelete {get; set;}
+        @AuraEnabled
+        public List<SObject> objectsBeingDeleted {get; set;}
+
     }
 
 

@@ -2,13 +2,16 @@ import { LightningElement, track } from 'lwc';
 
 import { BASE_ATTS, Enums } from "c/sr_jsModules";
 
-import eventHelper from './helpers/eventHelper.js';
-import apexHelper from "./helpers/apexHelper.js";
+// import eventHelper from './helpers/eventHelper.js';
+// import apexHelper from "./helpers/apexHelper.js";
+
+import { apexHelper, eventHelper } from "./helpers/helper.js";
 
 const LABELS = {
     attributes: "Attributes",
     skills: "Skills",
     magic: "Magic",
+    forcePoints: "Force Points",
     tabs: {
         
         basic: "Basic info",
@@ -26,7 +29,11 @@ const LABELS = {
     toast: {
         success: "Success",
         charSaved: "Character saved"
-    }
+    },
+    handle: "Handle",
+    realName: "Real Name",
+    notes: "Notes"
+
 };
 
 
@@ -41,11 +48,11 @@ export default class SR_AppWrapper extends LightningElement {
 
     @track selectedChar;
     @track SkillAssigns__r = [];
-    @track Spell_Assigns__r = [];
+    @track spellAssigns = [];
 
     basicInfo = {};
     templates;
-    characterNames;
+    characterNames = [];
 
     adjuEffects = [];
 
@@ -108,44 +115,47 @@ export default class SR_AppWrapper extends LightningElement {
         // }
     }
 
-    handleChildEvent(event) {
-        event.stopPropagation();
+    // handleChildEvent(event) {
+    //     event.stopPropagation();
 
-        //console.log('handleChildEvent event:');
-        //console.log(JSON.stringify(event));
+    //     //console.log('handleChildEvent event:');
+    //     //console.log(JSON.stringify(event));
 
-        switch (event.type) {
-            case "toggleSpinner":
-                this.showSpinner = !this.showSpinner;
-                break;
-            case "metarace_and_atts":
-                //eventHelper.handlemetarace_and_atts(this, event.detail);
-                break;
-            case "skill_change":
-                //eventHelper.handleskill_change2(this, event.detail);
-                break;
-            case "magic_event":
-                eventHelper.handlemagic_event(this, event.detail);
-                break;
+    //     switch (event.type) {
+    //         case "toggleSpinner":
+    //             this.showSpinner = !this.showSpinner;
+    //             break;
+    //         case "metarace_and_atts":
+    //             //eventHelper.handlemetarace_and_atts(this, event.detail);
+    //             break;
+    //         case "skill_change":
+    //             //eventHelper.handleskill_change2(this, event.detail);
+    //             break;
+    //         case "magic_event":
+    //             eventHelper.handlemagic_event(this, event.detail);
+    //             break;
 
-        }
+    //     }
 
-        this.selectedChar = Object.assign({}, this.selectedChar);
+    //     this.selectedChar = Object.assign({}, this.selectedChar);
 
-        eventHelper.rebuildAdjusAndBasicInfo(this);
-        this.saveDisabled = false;
-    }
+    //     eventHelper.rebuildAdjusAndBasicInfo(this);
+    //     this.saveDisabled = false;
+    // }
 
     handleUpdateEvent(event) {
-        console.log('handleUpdateEvent');
+        //console.log('handleUpdateEvent');
 
         let payload = event.detail
 
         switch (payload.updateType) {
             case Enums.Character:
-                console.log('Enums.Character event caught');
+                //console.log('Enums.Character event caught');
 
                 this.selectedChar = Object.assign({}, payload.updateObj);
+
+                //console.log('new this.selectedChar:');
+                //console.log(JSON.stringify(this.selectedChar));
                 break;
             case Enums.AssignObjTypes.Skill:
                 eventHelper.handleSkillChange(this, payload);

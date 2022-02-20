@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import { oneToSixCombobox, placeholderIdGenerator } from "c/sr_jsModules";
 
-import helper from "./helpers/helper.js";
+//import helper from "./helpers/helper.js";
 const LABELS = {
     tabs: {
         typeAndTradition: "Type & Tradition",
@@ -21,29 +21,31 @@ const LABELS = {
 export default class Sr_magic extends LightningElement {
     labels = LABELS;
 
-    @track _selectedChar;
-    @api
-    get selectedChar() {
-        return this._selectedChar;
-    };
-    set selectedChar(value) {
-        //console.log('Sr_magic receiving new selectedChar');
-        this._selectedChar = Object.assign({}, value);
+    // @track _selectedChar;
+    // @api
+    // get selectedChar() {
+    //     return this._selectedChar;
+    // };
+    // set selectedChar(value) {
+    //     //console.log('Sr_magic receiving new selectedChar');
+    //     this._selectedChar = Object.assign({}, value);
 
-        //console.log(JSON.stringify(this.selectedChar));
+    //     //console.log(JSON.stringify(this.selectedChar));
 
-        //this.magicianTypeId = this.selectedChar.MagicianTypeId__c;
-        //this.magicalTradition = this.selectedChar.MagicalTradition__c;
-        //this.totemId = this.selectedChar.TotemId__c;
+    //     //this.magicianTypeId = this.selectedChar.MagicianTypeId__c;
+    //     //this.magicalTradition = this.selectedChar.MagicalTradition__c;
+    //     //this.totemId = this.selectedChar.TotemId__c;
 
-        //helper.buildSpellListsToDisplay(this);
-        helper.buildSpellListsToDisplay(this);
+    //     //helper.buildSpellListsToDisplay(this);
+    //     helper.buildSpellListsToDisplay(this);
 
-    }
+    // }
+
+    @api selectedChar;
 
     @api spellAssigns;
 
-
+/*
     @api selectedSpellAssigns = [];
 
     _magicCollectionContainers;
@@ -218,7 +220,7 @@ export default class Sr_magic extends LightningElement {
 
         helper.sendEventToParent(this);
     }
-
+*/
     handleUpdateEvent(event) {
         event.stopPropagation();
 

@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import helper from "./helpers/helper.js";
-import { oneToSixCombobox, Enums } from "c/sr_jsModules";
+import { oneToSixCombobox, Enums, collectionContainers } from "c/sr_jsModules";
 
 const LABELS = {
     chooseRating: "Choose Rating",
@@ -12,19 +12,24 @@ const LABELS = {
 export default class Sr_skills extends LightningElement {
     labels = LABELS;
 
-    _skillTemplateCollectionContainer;
-    @api
+    // _skillTemplateCollectionContainer;
+    // @api
+    // get skillTemplateCollectionContainer() {
+    //     return this._skillTemplateCollectionContainer;
+    // };
+    // set skillTemplateCollectionContainer(value) {
+    //     this._skillTemplateCollectionContainer = value;
+    //     //console.log('skillTemplateCollectionContainer:');
+    //     //console.log(JSON.stringify());
+
+
+    //     helper.buildSortedSkillListArray(this);
+    // }
     get skillTemplateCollectionContainer() {
-        return this._skillTemplateCollectionContainer;
-    };
-    set skillTemplateCollectionContainer(value) {
-        this._skillTemplateCollectionContainer = value;
-        //console.log('skillTemplateCollectionContainer:');
-        //console.log(JSON.stringify());
-
-
-        helper.buildSortedSkillListArray(this);
+        return collectionContainers.skills.skillTemplates;
     }
+
+
     
     _selectedSkills;
     @api
@@ -35,6 +40,11 @@ export default class Sr_skills extends LightningElement {
         this._selectedSkills = JSON.parse(JSON.stringify(value)); // clone
 
         helper.buildSortedSkillListArray(this);
+    }
+
+    connectedCallback() {
+        helper.buildSortedSkillListArray(this);
+
     }
 
     //minimalSkillList = [];

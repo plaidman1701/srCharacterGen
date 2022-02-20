@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import { sendUpdateEvent, Enums } from "c/sr_jsModules";
+import { sendUpdateEvent, Enums, collectionContainers } from "c/sr_jsModules";
 
 const LABELS = {
     magicianType: "Magician Type",
@@ -12,10 +12,9 @@ const LABELS = {
     advantagesDisadvantages: "Advantages / Disadvantages"
 };
 
+
 export default class Sr_magic_typeAndTradition extends LightningElement {
     labels = LABELS;
-
-    @api magicCollectionContainers;
 
     _selectedChar;
     @api
@@ -27,10 +26,10 @@ export default class Sr_magic_typeAndTradition extends LightningElement {
     }
 
     get totemCollectionContainer() {
-        return this.magicCollectionContainers?.totems;
+        return collectionContainers.magic.totems;
     }
     get magicianTypeCollectionContainer() {
-        return this.magicCollectionContainers?.magicianTypes;
+        return collectionContainers.magic.magicianTypes;
     }
 
     _magicianTypeRadioOptions;
