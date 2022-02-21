@@ -12,7 +12,6 @@ const LABELS = {
     advantagesDisadvantages: "Advantages / Disadvantages"
 };
 
-
 export default class Sr_magic_typeAndTradition extends LightningElement {
     labels = LABELS;
 

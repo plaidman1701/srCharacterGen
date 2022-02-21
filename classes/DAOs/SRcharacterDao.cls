@@ -1,4 +1,4 @@
-public with sharing class SRcharacterDao extends fflib_SObjectSelector {
+public inherited sharing class SRcharacterDao extends fflib_SObjectSelector {
  
     public Schema.SObjectType getSObjectType(){
        return SRcharacter__c.sObjectType;
@@ -66,7 +66,6 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             'Exclusive__c',
             'Fetish__c',
             'Rating__c',
-            'SpecialName__c',
             'SpellTemplateId__c',
             'SpellTemplateOption__c',
             'SpellTemplateVariantIndex__c'
@@ -90,8 +89,6 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
         System.debug(JSON.serializePretty(charWrapper.character));
         
         uow.registerUpsert(charWrapper.character);
-        // uow.registerUpsert(charWrapper.skillAssigns);
-        // uow.registerUpsert(charWrapper.spellAssigns);
 
         for (SkillAssign__c skill : charWrapper.skillAssigns) {
             if (skill.Id == null) {
@@ -108,10 +105,7 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
             }
         }
 
-
         uow.registerDeleted(charWrapper.objectsBeingDeleted);
-        // uow.registerDeleted(charWrapper.skillAssignsToDelete);
-        // uow.registerDeleted(charWrapper.spellAssignsToDelete);
 
         try {
             uow.commitWork();
@@ -121,6 +115,5 @@ public with sharing class SRcharacterDao extends fflib_SObjectSelector {
         }
 
         return true;        
-        //return Database.upsert(charToSave, false);
     }
 }

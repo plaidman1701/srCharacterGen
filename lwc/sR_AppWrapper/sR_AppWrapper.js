@@ -2,9 +2,6 @@ import { LightningElement, track } from 'lwc';
 
 import { BASE_ATTS, Enums } from "c/sr_jsModules";
 
-// import eventHelper from './helpers/eventHelper.js';
-// import apexHelper from "./helpers/apexHelper.js";
-
 import { apexHelper, eventHelper } from "./helpers/helper.js";
 
 const LABELS = {
@@ -33,9 +30,7 @@ const LABELS = {
     handle: "Handle",
     realName: "Real Name",
     notes: "Notes"
-
 };
-
 
 export default class SR_AppWrapper extends LightningElement {
     objectsBeingDeleted;
@@ -80,7 +75,6 @@ export default class SR_AppWrapper extends LightningElement {
 
     handleClick(event) {
         event.stopPropagation();
-
         //console.log(event.target.dataset.name);
 
         switch (event.target.dataset.name) {
@@ -106,42 +100,9 @@ export default class SR_AppWrapper extends LightningElement {
     handleChange(event) {
         event.stopPropagation();
 
-        eventHelper.changeValue(this, event.target.dataset.name, event.target.value);
-
-        // switch (event.target.dataset.name) {
-        //     case "charName":
-        //         eventHelper.changeName(this, event.target.value);
-        //         break;
-        // }
+        this.selectedChar[field] = value;
+        this.saveDisabled = false;
     }
-
-    // handleChildEvent(event) {
-    //     event.stopPropagation();
-
-    //     //console.log('handleChildEvent event:');
-    //     //console.log(JSON.stringify(event));
-
-    //     switch (event.type) {
-    //         case "toggleSpinner":
-    //             this.showSpinner = !this.showSpinner;
-    //             break;
-    //         case "metarace_and_atts":
-    //             //eventHelper.handlemetarace_and_atts(this, event.detail);
-    //             break;
-    //         case "skill_change":
-    //             //eventHelper.handleskill_change2(this, event.detail);
-    //             break;
-    //         case "magic_event":
-    //             eventHelper.handlemagic_event(this, event.detail);
-    //             break;
-
-    //     }
-
-    //     this.selectedChar = Object.assign({}, this.selectedChar);
-
-    //     eventHelper.rebuildAdjusAndBasicInfo(this);
-    //     this.saveDisabled = false;
-    // }
 
     handleUpdateEvent(event) {
         //console.log('handleUpdateEvent');
@@ -164,10 +125,7 @@ export default class SR_AppWrapper extends LightningElement {
                 eventHelper.handleSpellChange(this, payload);
                 break;
 
-                
-                //eventHelper.updateCharacter(this, payload.updateObj);
         }
-
 
         eventHelper.rebuildAdjusAndBasicInfo(this);
         this.saveDisabled = false;

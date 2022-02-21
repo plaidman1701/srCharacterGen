@@ -1,4 +1,4 @@
-public with sharing class MetadataSelector {
+public inherited sharing class MetadataSelector {
 
     public MetadataSelector() {
 //getAll()
@@ -25,6 +25,7 @@ public with sharing class MetadataSelector {
     public static Map<Id, MagicianType__mdt> getMagicianTypes() {
         return new Map<Id, MagicianType__mdt>( [
             SELECT Id, Label,
+            AllowsPhysad__c,
             AllowsSpells__c,
             BuildPoints__c,
             Description__c,

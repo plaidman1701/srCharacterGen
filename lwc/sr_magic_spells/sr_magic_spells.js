@@ -20,29 +20,17 @@ export default class Sr_magic_spells extends LightningElement {
     }
     set selectedChar(value) {
         this._selectedChar = value; 
-        //helper.getFilteredAndSortedSpellTemplates(this);
         helper.getFilteredSpellTemplatesAndAssigns(this);
     }
-
-    
-
-    // @api selectedChar;
-    // @api magicCollectionContainers;
+  
     @track _spellAssigns;
     @api
     get spellAssigns() {
         return this._spellAssigns;
     }
     set spellAssigns(value) {
-        //console.log('receiving new spellAssigns');
         this._spellAssigns = JSON.parse(JSON.stringify(value));
-        //console.log('presort:');
-        //console.log(JSON.stringify(this.spellAssigns));
-        //helper.getFilteredAndSortedSpellAssigns(this);
         helper.getFilteredSpellTemplatesAndAssigns(this);
-
-        //console.log('postsort:');
-        //console.log(JSON.stringify(this.spellAssigns));
     }
 
     get spellTemplateCollectionContainer() {
@@ -51,36 +39,13 @@ export default class Sr_magic_spells extends LightningElement {
 
     connectedCallback() {
         helper.getFilteredSpellTemplatesAndAssigns(this);
-
-        //helper.getFilteredAndSortedSpellTemplates(this);
-        //helper.getFilteredAndSortedSpellAssigns(this);
     }
 
-
-    // get totemCollectionContainer() {
-    //     return this.magicCollectionContainers?.totems;
-    // }
-    // get magicianTypeCollectionContainer() {
-    //     return this.magicCollectionContainers?.magicianTypes;
-    // }
-
-    // get magicianTypeObj() {
-    //     return this.magicianTypeCollectionContainer?.dataObj[this.selectedChar?.MagicianTypeId__c];
-    // }
-
-    // get selectedTotemObj() {
-    //     return this.totemCollectionContainer?.dataObj[this.selectedChar?.TotemId__c];
-    // }
-
-    @track spellTemplateListToDisplay = [];
-
+    @track spellTemplateListToDisplay;
     @track newSpellAssign;
 
-    // selectedSpellTemplateId;
-    // selectedSpellAssignId;
-
     filteredSpellTemplateIdSet;
-    @track filteredSpellAssignList = [];
+    @track filteredSpellAssignList;
 
     get selectedSpellTemplateObj() {
         return this.spellTemplateCollectionContainer?.dataObj[this.newSpellAssign?.SpellTemplateId__c];
@@ -113,23 +78,11 @@ export default class Sr_magic_spells extends LightningElement {
         });
     }
 
-
     handleSpellTemplateClick(event) {
         event.stopPropagation();
 
         this.newSpellAssign = {};
         this.newSpellAssign.SpellTemplateId__c = event.detail.Id;
-
-        console.log('this.selectedSpellTemplateObj:')
-        console.log(JSON.stringify(this.selectedSpellTemplateObj));
-
-        // this.selectedSpellAssignId = undefined;
-        // this.selectedSpellTemplateId = event.detail.Id;
-        // this._spellTemplateVariants = undefined;
-
-        // this._selectedSpellAssignObj = {
-        //     SpellTemplateVariantIndex__c: 0
-        // }; // set new spell assign obj
     }
 
     handleSpellAssignClick(event) {
@@ -140,19 +93,7 @@ export default class Sr_magic_spells extends LightningElement {
         this.newSpellAssign.Id = event.detail.Id;
 
         Object.assign(this.newSpellAssign, this.selectedSpellAssignObj);
-
-        // check for parenthesis in name, will re-parenethise on save
-        //this.newSpellAssign.Name = this.newSpellAssign.Name?.match(/\(([^)]+)\)/)?.at(1);
     }
-
-    // @track _selectedSpellAssignObj;
-    // get selectedSpellAssignObj() {
-    //     console.log('getting selectedSpellAssignObj');
-    //     console.log(JSON.stringify(this._selectedSpellAssignObj));
-    //     return this._selectedSpellAssignObj;
-    // }
-    
-
 
     handleSpellDetailChange(event) {
         event.stopPropagation();
@@ -164,9 +105,6 @@ export default class Sr_magic_spells extends LightningElement {
         this.newSpellAssign[event.target.dataset.attributeName] = isNaN(eventValue) ? eventValue : Number(eventValue);
         console.log('this.newSpellAssign');
         console.log(JSON.stringify(this.newSpellAssign));
-
-        //spellTemplateVariantIndex
-
     }
 
     // need a rating to save, and if requirs name or options, also a name
@@ -179,8 +117,6 @@ export default class Sr_magic_spells extends LightningElement {
     get disableDelete() {
         return !this.newSpellAssign?.Id;
     }
-
-
 
     handleButtonClick(event) {
         event.stopPropagation();

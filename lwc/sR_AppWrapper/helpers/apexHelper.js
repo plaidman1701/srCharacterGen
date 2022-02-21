@@ -6,26 +6,6 @@ import { simpleToast, filterAndBuildSpellTemplateList, setCollectionContainers, 
 //import eventHelper from './eventHelper';
 import { eventHelper, processIncomingCharacterData} from "./helper.js";
 
-
-const skillSectionLabels = [ "Type__c", "Category__c" ];
-const skillOrdering = [
-    ["Active", "Combat", "Physical", "Technical", "Magical"],
-    ["Social", "Ettiquette"],
-    ["Vehicle"],
-    ["Build and Repair", "Active", "Vehicle"],
-    ["Knowledge"],
-    ["Special"]            
-];
-
-const spellSectionLabels = [ "Category__c", "Subcategory__c" ];
-const spellOrdering = [
-    ["Combat"],
-    ["Detection"],
-    ["Health"],
-    ["Illusion"],
-    ["Manipulation", "Control Manipulations", "Telekinetic Manipulations", "Transformation Maniplulations"]      
-];
-
 let randomizeArray = (arr) => {
     for (let index = 0; index < arr.length; ++index) {
         let tempIndex = Math.floor(Math.random() * arr.length);
@@ -42,26 +22,7 @@ function stripPlaceholderIds(objList) {
     objList.forEach(element => {
         if (element.Id.startsWith("placeholder")) delete element.Id;
     });
-   // console.log('stripPlaceholderIds done');
-
-    /*
-    // skills
-    cmp.SkillAssigns__r.forEach(skill => {
-        if (skill.Id.startsWith("placeholder")) delete skill.Id;
-    });
-    cmp.objectsBeingDeleted.skillAssigns =
-        cmp.objectsBeingDeleted.skillAssigns.filter(skill => !skill.Id.startsWith("placeholder"));
-    
-    // spells
-    cmp.spellAssigns.forEach(spell => {
-        if (spell.Id.startsWith("placeholder")) delete spell.Id;
-    });
-    cmp.objectsBeingDeleted.spellAssigns =
-        cmp.objectsBeingDeleted.spellAssigns.filter(spell => !spell.Id.startsWith("placeholder"));
-*/
 }
-
-
 
 let apexHelper = {
     getInitData: (cmp) => {
@@ -82,17 +43,7 @@ let apexHelper = {
 
                 setCollectionContainers(result.templates);
 
-                // cmp.collectionContainers.metarace = {};
-                // cmp.collectionContainers.metarace.metaraces = new CollectionContainer(result.templates.metaraceTemplateMap, null, null);
                 cmp.adjustmentTemplates.metarace = result.templates.metaraceAdjustmentMap;
-
-                // cmp.collectionContainers.skills = {};
-                // cmp.collectionContainers.skills.skillTemplates = new CollectionContainer(result.templates.skillTemplateMap, skillOrdering, skillSectionLabels);
-
-                // cmp.collectionContainers.magic = {};
-                // cmp.collectionContainers.magic.magicianTypes = new CollectionContainer(result.templates.magicianTypeMap, null, null);
-                // cmp.collectionContainers.magic.totems = new CollectionContainer(result.templates.totemMap, null, null);
-                // cmp.collectionContainers.magic.spellTemplates = new CollectionContainer(result.templates.spellTemplateMap, spellOrdering, spellSectionLabels);
                 cmp.adjustmentTemplates.totems = result.templates.totemAdjustmentMap;
 
 
@@ -107,12 +58,8 @@ let apexHelper = {
     },
 
     saveCharacter: (cmp) => {
-        console.log('saveCharacter');
+        // console.log('saveCharacter');
         cmp.showSpinner = true;
-
-        // let objectsToUpsert = removeIllegalObjects(cmp);
-        // console.log('objectsToUpsert');
-        // console.log(JSON.stringify(objectsToUpsert));
 
         let spellData = filterAndBuildSpellLists(cmp);
 
@@ -124,25 +71,9 @@ let apexHelper = {
             }
         });
 
-        // console.log('spellAssignsToUpsert');
-        // console.log(JSON.stringify([ ...spellAssignsToUpsert, ...cmp.SkillAssigns__r ]));
-
-
         let objectsBeingDeleted = cmp.objectsBeingDeleted.filter(obj => !obj.Id.startsWith("placeholder"));
 
         stripPlaceholderIds([ ...spellAssignsToUpsert, ...cmp.SkillAssigns__r ]);
-
-        // delete cmp.selectedChar.SkillAssigns__r;
-        // delete cmp.selectedChar.spellAssigns;
-/*
-        let charDataWrapper = {
-            character: cmp.selectedChar,
-            skillAssigns: cmp.SkillAssigns__r || [],
-            skillAssignsToDelete: cmp.objectsBeingDeleted?.skillAssigns || [],
-            spellAssigns: spellAssignsToUpsert || [],
-            spellAssignsToDelete: cmp.objectsBeingDeleted?.spellAssigns || []
-        };
-        */
 
         let charDataWrapper = {
             character: cmp.selectedChar,

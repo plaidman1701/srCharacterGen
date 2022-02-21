@@ -7,8 +7,6 @@
                 section-labels={sectionLabels}
                 ontileclick={handleLeftClick}>
             </c-sr_tile-list>
-            <!-- display-object={objLeftSide} -->
-
         </div>
         <div class="slds-col slds-size_1-of-3">
             <slot name="selectedContent">Default selectedContent</slot>
@@ -20,14 +18,6 @@
             tiles-per-column=1
                 ontileclick={handleRightClick}>
             </c-sr_tile-list>
-            <!-- display-object={objRightSide} -->
-
-            <!-- <c-sr_tile-list
-            sort-tiles={sortTiles}
-            sort-fields={sortFields}
-
-            tile-list={listRightSide}>
-            </c-sr_tile-list> -->
         </div>
     </div>
 </template>

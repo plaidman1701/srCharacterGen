@@ -1,14 +1,10 @@
 public with sharing class SR_AppWrapperCtrl {
-
-    // @TestVisible
-    // private static MetadataSelector metadataSelector = new MetadataSelector();
     @TestVisible
     private static SRcharacterDao charDao = new SRcharacterDao();
 
     public SR_AppWrapperCtrl() {
 
     }
-
 
     @AuraEnabled
     public static ResponseWrapper getInitData() {

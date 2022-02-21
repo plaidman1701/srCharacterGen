@@ -234,20 +234,6 @@ export const sortByListOrdering = (ordering, h1label, h2label) => {
 // ordering is a 2d array to sort by, eg [ ["Active", "Combat", "Technical", "Magical", "Physical"], ["Vehicle"], etc ]
 //export const buildListForDisplay = (entries, ordering, h1label, h2label) => {
 export const buildListForDisplay = (entries, h1label, h2label) => {
-
-    // console.log('buildListForDisplay');
-    // console.log(JSON.stringify(entries));
-    // console.log(JSON.stringify(h1label));
-    // console.log(JSON.stringify(h2label));
-
-
-
-    //entries.sort(sortByListOrdering(ordering, h1label, h2label));
-
-    //console.log('sorted entries:');
-    //console.table(entries);
-
-
     let returnObj = {}, prevH1, prevH2, h1obj, h2obj;
 
     entries.forEach(entry => {
@@ -324,10 +310,6 @@ export class CollectionContainer {
 
         this.dataList =
             Array.from(this.dataList.sort(sortByListOrdering(this.orderingObj, ...this.sectionLabels )));
-
-            //console.log('constructed');
-           // console.table(this.dataList);
-          //  console.log(this.sectionLabels);
     }
 }
 

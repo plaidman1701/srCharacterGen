@@ -62,15 +62,22 @@
                 
                 options={attComboxValues.Willpower__c}
                 value={selectedChar.Willpower__c}></lightning-combobox>
-                {labels.atts.charisma} - {adjuEffects.atts.Charisma__c.text}
+
+                
                 <lightning-combobox
                 data-attributename="Charisma__c"
-                
+                label={labels.atts.charisma}
                 options={attComboxValues.Charisma__c}
                 value={selectedChar.Charisma__c}></lightning-combobox>
+                {adjuEffects.atts.Charisma__c.text}
 
                 {labels.atts.reaction}: {adjuEffects.atts.Reaction__c.text}<br />
                 {labels.initiative}: {adjuEffects.atts.Initiative.text}<br />
+                {labels.atts.essence}: {adjuEffects.atts.Essence__c.text}<br />
+                {labels.atts.magic}: {adjuEffects.atts.Magic__c.text}<br />
+
+                <p>Dice Pools</p>
+                <p>Combat: {adjuEffects.atts.dicePools_combat.text}</p>
         </div>
         <div class="slds-col slds-size_1-of-3">
             <template for:each={adjuEffects.adjuListText} for:item="bonus">

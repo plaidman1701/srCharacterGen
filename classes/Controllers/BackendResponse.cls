@@ -1,4 +1,4 @@
-public with sharing abstract class BackendResponse {
+public inherited sharing abstract class BackendResponse {
     @AuraEnabled
     public Boolean isSuccess;
 

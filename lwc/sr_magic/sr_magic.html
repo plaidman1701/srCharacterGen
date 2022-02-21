@@ -9,27 +9,22 @@
                 </c-sr_magic_type-and-tradition>
 
             </lightning-tab>
-            
-            <lightning-tab label={labels.tabs.spells}>
-                <c-sr_magic_spells
-                selected-char={selectedChar}
-                spell-assigns={spellAssigns}
-                onupdateevent={handleUpdateEvent}>
-                </c-sr_magic_spells>
 
-            </lightning-tab>
-
-                <!-- <lightning-tab label={labels.tabs.spells}>
+            <template if:true={showSpells}>
+                <lightning-tab label={labels.tabs.spells}>
                     <c-sr_magic_spells
                     selected-char={selectedChar}
                     spell-assigns={spellAssigns}
                     onupdateevent={handleUpdateEvent}>
                     </c-sr_magic_spells>
+                </lightning-tab>
+            </template>
 
-                </lightning-tab> -->
+            <template if:true={showPhysad}>
+                <lightning-tab label={labels.tabs.physadPowers}>
 
-
-
+                </lightning-tab>
+            </template>
         </div>
 
     </lightning-tabset>
